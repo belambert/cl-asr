@@ -1,0 +1,4 @@
+• Mean/variance normalization in feature computation
+• Want more/better data structures.... for ceptra... hmms, better structs for audio etc.
+• Need to pass same parameters to template loader and to recorder/reader of audio...
+• Arithmetic sense machine in decoder
