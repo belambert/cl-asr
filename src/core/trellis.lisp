@@ -1,5 +1,4 @@
-;;;; Author: Benjamin E. Lambert
-;;;; ben@benjaminlambert.com
+;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)

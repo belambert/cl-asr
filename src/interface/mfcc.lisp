@@ -1,12 +1,8 @@
-;;; Copyright Benjamin E. Lambert, 2005-2011
-;;; All rights reserved
-;;; Please contact author regarding licensing and use:
-;;; ben@benjaminlambert.com
+;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "Reading Sphinx MFCC extracted feature files.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read an MFCC feature file ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

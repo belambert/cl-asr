@@ -1,7 +1,4 @@
-;;; Copyright Benjamin E. Lambert, 2005-2011
-;;; All rights reserved
-;;; Please contact author regarding licensing and use:
-;;; ben@benjaminlambert.com
+;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)x
 
 (cl-user::file-summary "Defines the sphinx-l package.")
 
