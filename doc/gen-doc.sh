@@ -15,7 +15,7 @@ done
 
 echo "Converting Lisp documentation to PDF..."
 cd lisp
-wkhtmltopdf --load-error-handling ignore index.html [a-hm-v]*.html */*.html */*/*.html ../kbasr-doc.pdf
+wkhtmltopdf --load-error-handling ignore index.html [a-hm-v]*.html */*.html */*/*.html ../sphinx-l-doc.pdf
 cd -
 
 # echo "Generating Python documentation..."

@@ -79,7 +79,7 @@
 		   :tmat (gethash "tmat" opts)
 		   :lda (gethash "lda" opts)
 		   :dict (gethash "dict" opts))
-    (setf *lm* (cl-lm::load-model (gethash "lm" opts)))
+    (setf *lm* (language-model::load-model (gethash "lm" opts)))
     (let ((log-base (read-from-string (gethash "logbase" opts)))
 	  (beam (gethash "beam" opts)))
       (setf beam (substitute #\d #\e beam))

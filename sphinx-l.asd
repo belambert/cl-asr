@@ -86,7 +86,7 @@
   :depends-on (:blambert-util :bordeaux-fft
 			      :cl-ppcre
 			      :sb-posix
-			      ;;:language-model
+			      :language-model
 			      ;;:port-audio
 			      ;;:mixalot-mp3
 			      :ieee-floats
@@ -95,6 +95,8 @@
 			      :array-operations
 			      :cl-fad
 			      :split-sequence
+			      :gnuplot
+			      :dependency-lm
 			      ))
 
 
