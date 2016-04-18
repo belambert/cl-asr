@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -34,4 +34,3 @@
 					:mandatory-begin-and-end-silence pad-with-silence))
 	 (lang-hmm (create-language-hmm fsm models :model-source :phone :silence-penalty silence-penalty)))
     lang-hmm))
-

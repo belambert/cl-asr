@@ -1,9 +1,8 @@
-;;;; Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "Reading Sphinx transition matricies' probabilities files.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read/write transition matrix probabilities ;;;;;;;;;;;;;;;;;;;;;;;;;;

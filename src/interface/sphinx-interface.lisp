@@ -1,14 +1,8 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "General functions for reading entire S3 acoustic model files.")
-
-
-;; Don't need a READ-DICTIONARY FUNCTION, WE ALREADY HAVE ONE IN dictionary.lisp
-;;(defun read-dictionary (filename &key (force nil))
-;; Ditto...?
-;; (defun read-noise-dictionary (filename)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

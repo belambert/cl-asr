@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -77,9 +77,7 @@
 (defun load-grammar (filename &key (model-source :phone) silence-penalty word-insertion-penalty)
   "Load a FSM grammar from a file."
   (let ((fsm (read-finite-state-grammar filename)))
-    ;;(create-language-hmm fsm model-folder :model-source model-source :silence-penalty silence-penalty :word-insertion-penalty word-insertion-penalty)
-    (create-language-hmm-from-fsm fsm *acoustic-model*  :model-source model-source :silence-penalty silence-penalty :insertion-penalty word-insertion-penalty)
-    ))
+    (create-language-hmm-from-fsm fsm *acoustic-model*  :model-source model-source :silence-penalty silence-penalty :insertion-penalty word-insertion-penalty)))
 
 
 

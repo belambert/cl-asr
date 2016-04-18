@@ -1,10 +1,9 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
+
 (cl-user::file-summary "Reading and representation of a pronunciation dictionary")
-
-
 (cl-user::section "Pronunciation dictionary")
 
 (defvar *current-dictionary* nil
@@ -72,11 +71,11 @@
     (return-from read-dictionary t))
   (format t "Reading pronunciation dictionary ~A...~%" filename)(force-output t)
 
-  (let ((dictionary (make-hash-table :test 'equalp));; :size 1000000))
+  (let ((dictionary (make-hash-table :test 'equalp))
 	(pronunciation-map (make-hash-table :test 'equalp))
 	(phone-table (make-hash-table :test 'equalp))
 	(counter 0))
-    ;;; Setup the "word" <sil>
+    ;; Setup the "word" <sil>
     (setf (gethash "<sil>" dictionary) '("SIL"))
     (setf (gethash "SIL" phone-table) t)
     (do-lines (line filename)
@@ -85,12 +84,10 @@
 	(let* ((tokens (cl-ppcre:split "\\\s+" line))
 	       (word (first tokens))
 	       (phone-seq (rest tokens))
-	       (word-base nil)
-	       )
+	       (word-base nil))
 	  (setf word (remove #\: word))
 	  (setf word-base (remove-alt-pron-marker word))
 	  (setf (gethash word dictionary) phone-seq)
-	  ;;(push (list word phone-seq) (gethash word-base pronunciation-map))
 	  (push word (gethash word-base pronunciation-map))
 
 	  (dolist (phoneme phone-seq)

@@ -1,9 +1,8 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "Some convenience functions for doing math on arrays and vectors.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Vector operations ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -23,8 +22,7 @@
   "Sum all the elements of the given seq."
   (declare (optimize (speed 3))
 	   (simple-array seq))
-  (reduce (lambda (x y) (declare (single-float x y)) (+ x y)) seq)
-  )
+  (reduce (lambda (x y) (declare (single-float x y)) (+ x y)) seq))
 
 (defun safe-log (x)
   (declare ((single-float 0.0 *) x))
@@ -36,7 +34,6 @@
   "Return a vector that contains the log of each element of seq."
   (declare (optimize (speed 3))
 	   (simple-array seq))
-  ;;(map 'vector (lambda (x) (declare ((single-float 0.0 *) x)) (if (/= x 0) (log x) x)) seq)
   (map 'vector 'safe-log seq))
 
 (defun vector-log-sum (seq)
@@ -105,8 +102,6 @@
 	 (loop for i from 0 below vector-length do
 	      (setf (aref vector i) (aref 2d-array vector-number i))))
     array))
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Simple vector arithmetic -- Used for training? ;;;;;;;;;;;;;;;;;

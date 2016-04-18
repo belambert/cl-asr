@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -33,14 +33,10 @@
   (assert (= (length (the simple-array (gaussian-mean g))) (length (the simple-array (gaussian-variance g)))))
   (unless (= (the fixnum (gaussian-dimensions g)) (length (the simple-array (gaussian-mean g))))
     (setf (gaussian-dimensions g) (length (the simple-array (gaussian-mean g)))))
-  (let (;;(const1 (- (* 0.5 (the single-float (vector-sum (vector-log (gaussian-variance g)))))))
-	(const1 (- (* 0.5 (the single-float (vector-log-sum (gaussian-variance g))))))
+  (let ((const1 (- (* 0.5 (the single-float (vector-log-sum (gaussian-variance g))))))
 	(const2 (- (* 0.5 (the fixnum (gaussian-dimensions g)) (log (* 2 pi))))))
     (setf (gaussian-constant1 g) (coerce const1 'single-float))
-    (setf (gaussian-constant2 g) (coerce const2 'single-float))
-    ;; (setf (gaussian-constant1 g) const1)
-    ;; (setf (gaussian-constant2 g) const2)
-    ))
+    (setf (gaussian-constant2 g) (coerce const2 'single-float))))
 
 (defclass* gaussian-mixture (distribution)
   ((gaussians #() :type (simple-array gaussian))
@@ -105,7 +101,6 @@
   (:documentation "This approximates the log probability of x in the given GMM, by taking only the biggest match
    of all the gaussians in the mixture."))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; Computing Gaussian distance/probability -- Implemented ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -132,22 +127,18 @@
 	    (sigma-i (elt variance i)))
 	(declare (single-float xi mu-i sigma-i))
 	;; Getting a div-by-zero here:
-	;;(incf cumulative-probability (/ (expt (- xi mu-i) 2) sigma-i))
+	(incf cumulative-probability (/ (expt (- xi mu-i) 2) sigma-i))
 	(unless (= sigma-i 0.0)
 	  (incf cumulative-probability (/ (expt (- xi mu-i) 2) sigma-i)))))
     cumulative-probability))
 
 (defmethod lgk (x (gmm gaussian-mixture) k)
   "This is the log probability of X according to gaussian #k of the mixture (?)"
-  ;;(declare (optimize (speed 3)))
   (let* ((gaussian (aref (the (simple-array gaussian) (gaussian-mixture-gaussians gmm)) k))
 	 (dist (gaussian-distance x gaussian))
 	 (term1 (* -0.5 dist))
 	 (wk (aref (the (simple-array single-float) (gaussian-mixture-weights gmm)) k))
-	 ;;(lgk (+ term1 (log ck) (log wk))))
 	 (lgk (+ (the single-float (log wk))
-		 ;;(- (* 0.5 (gaussian-dimensions gaussian) (log (* 2 pi)))) ;; optional
-		 ;;(- (* 0.5 (vector-sum (vector-log (gaussian-variance gaussian))))) ;; pre-computed.
 		 (the single-float (gaussian-constant1 gaussian))
 		 (the single-float (gaussian-constant2 gaussian))
 		 term1)))
@@ -176,7 +167,6 @@
       (let ((this-lgk (lgk x gmm k)))
 	(incf total-prob (exp this-lgk))))
     total-prob))
-
 
 (cl-user::subsection "Log Gaussian probabilities")
 
@@ -249,7 +239,6 @@
   "This computes the exact(?) log probabilty of observation x, in the given
    gaussian mixture model.
    THIS IS THE FUNCTION WE'RE USING"
-  ;;(declare (optimize (speed 3)))
   (multiple-value-bind (max-lgk lgk-values)
       (get-max-lgk x gmm)
     (declare (single-float max-lgk) ((simple-array single-float) lgk-values))
@@ -263,8 +252,7 @@
 
 (defmethod log-gaussian-mixture-probability-approx (x (gmm gaussian-mixture) &key (top-n 4))
   "An approximation of the true mixture probabilty, using only the top n matching gaussians in the mixture."
-  (declare ;;(optimize (speed 3))
-	   (fixnum top-n))
+  (declare (fixnum top-n))
   (multiple-value-bind (max-lgk lgk-values)
       (get-max-lgk x gmm)
     (declare (single-float max-lgk) ((simple-array single-float) lgk-values))

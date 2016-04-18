@@ -1,8 +1,11 @@
-;;;; Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "A command line interface for Sphinx-L that mimics the interface of Sphinx3 (allowing for easy comparison).")
+
+;; For command line use: com.dvlsoft.clon
+;; For doc... use Albert, or ATDOC
 
 (defparameter *feature-extraction-param* nil)
 (defparameter *implemented-options-raw* nil)
@@ -53,7 +56,6 @@
 ;; TODO - This function needs to be written...
 (defun print-matchseg-line (stream rr id)
   "Print the segmented match line to the matchseg file stream."
-  ;;(format stream "~{~A~^ ~} (~A)~%" (rr-words rr) id)
   (format stream "~{~A~^ ~} (~A)~%" (rr-bp-list rr) id))
   
 (defun sphinxlisp-decode ()
@@ -87,7 +89,6 @@
 	  (loop for (file id) in (read-ctl-file opts)
 	     for rec-result =  (decode file
 				       :language-weight (read-from-string (gethash "lw" opts))
-				       ;;:relative-threshold (coerce (log beam log-base) 'single-float)
 				       :relative-threshold (coerce beam 'single-float)
 				       :show-spectrum-with-hypothesis nil
 				       :insertion-penalty (log (read-from-string (gethash "wip" opts)) log-base)

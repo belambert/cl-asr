@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -12,14 +12,6 @@
 
 (cl-user::section "Speech Recognition (a.k.a decoding)")
   
-;; (defun string->words (string)
-;;   "Split a string by spaces into words, and add a silence at the beginning and end.
-;;    This is used when aligning a string to audio, so we don't have to split the string into
-;;    words in advance.  The silences are also important since most audio recording will have leading
-;;    and trailing silence."
-;;   (let ((words (split-sequence:split-sequence #\Space string)))
-;;     (append (list "<sil>") words (list "<sil>"))))
-
 (defun string->words (string)
   "Split a string by spaces into words, and add a silence at the beginning and end.
    This is used when aligning a string to audio, so we don't have to split the string into
@@ -39,7 +31,6 @@
 		(format f "~F " match-score))
 	   (terpri f)))))
 
-
 (defun list-modes ()
   (list :fsm
 	:align
@@ -51,7 +42,6 @@
 	:lextree-ci
 	:lextree-cd-basic
 	:lextree-cd))
-
 
 ;; TODO - add the option to use a finite state grammar as the LM .... load this by calling: READ-FINITE-STATE-GRAMMAR or LOAD-GRAMMAR
 (defun decode (mfcc-file &key
@@ -197,8 +187,7 @@
 (defun mfcc-file->samples (filename &key (feature-count 13))
   "Given an MFCC file, convert it to spectra, then convert the spectra to playable samples! (DOES NOT WORK YET!)"
   (let* ((cepstra (read-raw-mfccs filename :feature-count feature-count))
-	 (spectra (mapcar (lambda (x) (coerce (mapcar 'exp x) 'vector)) (cepstra->spectra cepstra)))
-	 
+	 (spectra (mapcar (lambda (x) (coerce (mapcar 'exp x) 'vector)) (cepstra->spectra cepstra)))	 
 	 ;; err, we also need to run the data in reverse through the mel filters...
 	 ;; we need the "short time inverse FFT" here instead?
 	 (sample-vectors-complex (mapcar 'bordeaux-fft:sifft spectra))

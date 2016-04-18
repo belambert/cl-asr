@@ -1,9 +1,8 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "Plot language HMMs as DOT directed graphs")
-
 
 (defun language-hmm->dot-file (hmm dot)
   "This BIG function takes a langauge HMM structure and prints the structure, etc. as a GraphViz DOT file.
@@ -13,9 +12,6 @@
   (with-open-file (f dot :direction :output :if-exists :supersede)
     (format f "digraph language_hmm {~%")
     (format f "rankdir=LR;~%")
-    ;;(format f "ranksep=.75;~%")
-    ;;(format f "ordering=out;~%")
-    ;;(format f "minlen=0;~%")
     (format f "concentrate=true;~%")
     ;; First, print all the edges in the graph, and when their weights are non-zero, label
     ;; the edge with the probability.

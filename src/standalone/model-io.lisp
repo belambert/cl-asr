@@ -1,11 +1,10 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
+
 (cl-user::file-summary "Input and output of model files")
-
 (cl-user::todo "Large portions of this file are probably largely obsolete at this point.")
-
 (cl-user::section "Data strutures and function for loading and saving Gaussians to files.")
 
 (defstruct disk-gaussian

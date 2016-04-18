@@ -1,4 +1,4 @@
-;;;; Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -106,7 +106,6 @@
 							    :lang-hmm new-lang-hmm)))
 	 (setf (aref examples i) new-example))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Main phoneme training     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -129,7 +128,7 @@
 		   file-list 
 		   (list-directory training-data-dir)))
 	(examples nil)
-	(phoneme-list '()) ;;(append *phoneme-list* (list "<sil>")))
+	(phoneme-list '())
 	(initial-models (get-initial-word-hmms initial-model-dir)))
 
     (unless file-list

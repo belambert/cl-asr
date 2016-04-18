@@ -1,13 +1,10 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "Generating random samples from Gaussians and HMMs")
 
 ;;; These don't/won't use the velocity/acceleration features...
-;; (alexandria:gaussian-random )
-;; (gaussian-random 
-
 
 (defgeneric sample (distribution)
   (:documentation "Sample the given distribution."))
@@ -25,7 +22,6 @@
   "This samples a basic (multi-dimensional) gaussian distibution (but not a mixture)."
   (let ((gaussian-index (select-random-array-index (gaussian-mixture-weights dist))))
     (sample (aref (gaussian-mixture-gaussians dist) gaussian-index))))
-
 
 ;; TODO - These two can/should move to somewhere more generic...
 (defun get-array-column (array column)
@@ -67,6 +63,3 @@
 	 ;; Randomly transition to another state.
 	 (setf state-num (select-random-array-index transition-array)))
     (nreverse observations)))
-
-
-;;; TODO WE LOST SOME CODE HERE... LOOK IN VC...  ???  (whATS's VC?  visualization code?)

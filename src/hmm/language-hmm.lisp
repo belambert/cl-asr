@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -36,15 +36,13 @@
   phone-id
   log-base
   (triphone-count 0)
-  (phone-id-table (make-hash-table))
-  )
+  (phone-id-table (make-hash-table)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Construction of language HMMs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-user::section "Construction of language HMMs")
-
 
 (defun set-state-word-final (hmm state)
   (setf (aref (language-hmm-word-final-state hmm) state) t))
@@ -61,23 +59,6 @@
 		   (aref (language-hmm-hmm-state-words hmm) (1- i))
 		   (aref (language-hmm-hmm-state-words hmm) i))))
     (format t "~:D language HMM dead ends found.~%" count)))
-
-
-;; (defun connect-lang-hmm-states (source dest hmm edge-value)
-;;   "Perform the necessary actions to connect two nodes in a language HMM.
-;;    A value, or cost, can also be assigned to the edge."
-;;   (let* ((transition-table (language-hmm-transitions hmm))
-;; 	 (transition-probabilities (language-hmm-transition-probabilities hmm))
-;; 	 (position (position dest (elt transition-table source))))
-;;     (if position
-;; 	(progn
-;; 	  ;;(format t "WARNING: An edge already connect: ~:D --> ~:D !!  (prev score: ~A new score: ~A)~%" source dest (elt (elt transition-probabilities source) position) edge-value)
-;; 	  ;;(assert (= edge-value (elt (elt transition-probabilities source) position)))
-;; 	  )
-;; 	(progn
-;; 	  (push dest (elt transition-table source))
-;; 	  (push edge-value (elt transition-probabilities source))))))
-
 
 (defun connect-lang-hmm-states (source dest hmm edge-value &key verbose)
   "Perform the necessary actions to connect two nodes in a language HMM.
@@ -111,11 +92,8 @@
   (setf (language-hmm-hmm-state-words hmm) (make-array (language-hmm-state-count hmm) :initial-contents (language-hmm-hmm-state-words hmm) :element-type '(or null string)))
   (setf (language-hmm-hmm-state-phonemes hmm) (make-array (language-hmm-state-count hmm) :initial-contents (language-hmm-hmm-state-phonemes hmm) :element-type '(or null string)))
   (setf (language-hmm-word-final-state hmm) (make-array (language-hmm-state-count hmm) :initial-contents (language-hmm-word-final-state hmm) :element-type 'boolean))
-  ;;(setf (language-hmm- hmm) (make-array (array-dimensions (language-hmm- hmm)) :initial-contents (language-hmm- hmm) :element-type ))
-
   (map-into (language-hmm-transitions hmm) 'nreverse (language-hmm-transitions hmm))
   (map-into (language-hmm-transition-probabilities hmm) 'nreverse (language-hmm-transition-probabilities hmm))
-
   hmm)
 
 (defun create-initial-language-hmm-new (log-base &key (initial-states 4) (initial-size 0))
@@ -135,7 +113,6 @@
 				:phone-id (make-array initial-size :initial-element nil :fill-pointer initial-states :adjustable t)
 				:log-base log-base
 				)))
-    ;;(connect-lang-hmm-states 0 dest hmm edge-value)
     hmm))
 
 (defun extend-language-hmm-by-n-states (hmm n)
@@ -180,18 +157,6 @@
 	    (language-hmm-edge-count hmm)	  
 	    (language-hmm-triphone-count hmm))))
 
-
-;; (defun print-language-hmm (hmm &key max-count)
-;;   (format t "LANGUAGE HMM. STATE=~A~%" (language-hmm-state-count hmm))
-;;   ;;(format t "TRANS:     ~{~{~S ~} - ~^ ~}~%" (mapcar (lambda (x) (truncate-list x 10)) (bl:truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
-;;   (format t "TRANS:     ~A~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
-;;   (format t "TRAN PROB: ~{~{~,2f ~} - ~^ ~}~%" (mapcar (lambda (x) (truncate-list x 10)) (bl:truncate-list (coerce (language-hmm-transition-probabilities hmm) 'list) max-count)))
-;;   (format t "EMISSION:  ~{~[y;n~]~^ ~}~%" (bl:truncate-list (coerce (language-hmm-emission-distributions hmm) 'list) max-count))
-;;   ;;(format t "WORDS:     ~{~3A~^ ~}~%" (bl:truncate-list (coerce (language-hmm-hmm-state-words hmm) 'list) max-count))
-;;   (format t "WORDS:     ~{~3A~^ ~}~%" (coerce (language-hmm-hmm-state-words hmm) 'list))
-;;   (format t "PHONES:    ~{~3A~^ ~}~%" (bl:truncate-list (mapcar (lambda (x) (if (triphone-p x) (triphone-base x) nil)) (coerce (language-hmm-hmm-state-phonemes hmm) 'list)) max-count))
-;;   (format t "FINALP:    ~{~3A~^ ~}~%" (bl:truncate-list (coerce (language-hmm-word-final-state hmm) 'list) max-count )))
-
 (defun make-triphone-readable (triphone)
   (if (triphone-p triphone)
       (if (or (triphone-left triphone) (triphone-right triphone))
@@ -201,16 +166,11 @@
 
 (defun print-language-hmm (hmm &key max-count)
   (format t "LANGUAGE HMM. STATE=~A~%" (language-hmm-state-count hmm))
-  ;;(format t "TRANS:     ~{~{~S ~} - ~^ ~}~%" (mapcar (lambda (x) (truncate-list x 10)) (bl:truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
   (format t "TRANS:     ~A~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
   (format t "TRAN PROB: ~A~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-transition-probabilities hmm) 'list) max-count)))
-  ;;(format t "EMISSION:  ~{~[y;n~]~^ ~}~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-emission-distributions hmm) 'list) max-count)))
   (format t "WORDS:     ~A~%" (list->numbered-string (bl:truncate-list (coerce (language-hmm-hmm-state-words hmm) 'list) max-count)))
-  ;;(format t "PHONES:    ~A~%" (list->numbered-string (bl:truncate-list (mapcar (lambda (x) (if (triphone-p x) (triphone-base x) nil)) (coerce (language-hmm-hmm-state-phonemes hmm) 'list)) max-count)))
   (format t "PHONES:    ~A~%" (list->numbered-string (bl:truncate-list (mapcar 'make-triphone-readable (coerce (language-hmm-hmm-state-phonemes hmm) 'list)) max-count)))
   (format t "FINALP:    ~A~%" (list->numbered-string (bl:truncate-list (coerce (language-hmm-word-final-state hmm) 'list) max-count))))
-
-
 
 (defun triphone-acoustic-equalp (t1 t2)
   "Checks if two triphone *acoustic models* are really the same."
@@ -219,7 +179,6 @@
 
 (defun get-triphone-emissions (triphone)
   "Get the (id's)of the triphone's emission distributions."
-  ;;(mapcar (lambda (x) (aref (acoustic-model-gmms sphinx-l::*acoustic-model*) x)) (triphone-state-ids triphone))
   (triphone-model-state-ids triphone))
 
 (defun get-triphone-tmat (triphone)

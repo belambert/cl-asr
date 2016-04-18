@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert (ben@benjaminlambert)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -53,9 +53,7 @@
 	    (read-gaussian-verbose :checksum-p checksum-p :checksum checksum :computed-checksum computed-checksum :state-count state-count :feature-stream-count feature-stream-count
 				   :density-count density-count :cepstral-feature-count cepstral-feature-count :data-length-given data-length-given))
 	  (assert (= data-length-given computed-data-length data-length))
-	  ;;(setf data (map 'list 'ieee-floats:decode-float32 data))
 	  (setf data (map-into data 'ieee-floats:decode-float32 data))
-	  ;;(setf data (coerce data 'list))
 	  (loop for i from 0 below state-count do
 	       (let ((state-means '()))
 		 (loop for j from 0 below feature-stream-count do

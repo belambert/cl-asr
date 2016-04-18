@@ -1,9 +1,6 @@
 ;;-*- Mode: Lisp -*- 
 
-;;; Copyright Benjamin E. Lambert, 2005-2011
-;;; All rights reserved
-;;; Please contact author regarding licensing and use:
-;;; ben@benjaminlambert.com
+;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 ;; We've hopefully already loaded the shared object in .sbclrc?!?
 ;;(port-audio::pa-initialize)
@@ -11,7 +8,7 @@
 (defsystem "sphinx-l"
   :description "Sphinx-L: A Lisp-based automatic speech recognition system"
   :version "0.3.0"
-  :author "Benjamin Lambert"
+  :author "Ben Lambert"
   :licence "All rights reserved"
   :serial t
   :components
@@ -43,7 +40,8 @@
 					       ;;(:file "phoneme-recognition")
 					       (:file "decoder-semantics")
 					       (:file "visualization")
-					       (:file "generative")))
+					       ;;(:file "generative")
+					       ))
 			 (:module signal-processing
 			 	  :serial t
 			 	  :components ((:file "cosine-transform")
@@ -83,20 +81,21 @@
 			 ;; 		       (:file "phoneme-model-training")))
 			 )))
 
-  :depends-on (:blambert-util :bordeaux-fft
-			      :cl-ppcre
-			      :sb-posix
-			      :language-model
-			      ;;:port-audio
-			      ;;:mixalot-mp3
-			      :ieee-floats
-			      :alexandria
-			      :metatilities
-			      :array-operations
-			      :cl-fad
-			      :split-sequence
-			      :gnuplot
-			      :dependency-lm
-			      ))
+  :depends-on (:blambert-util
+	       :bordeaux-fft
+	       :cl-ppcre
+	       :sb-posix
+	       :language-model
+	       ;;:port-audio
+	       ;;:mixalot-mp3
+	       :ieee-floats
+	       :alexandria
+	       :metatilities
+	       :array-operations
+	       :cl-fad
+	       :split-sequence
+	       :gnuplot
+	       ;;:dependency-lm
+	       ))
 
 

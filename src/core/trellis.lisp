@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -210,11 +210,8 @@
     (loop for (history score count states) in histories
        for i from 1 to n do
 	 (if in-progress
-	     ;;(format t "          ~:d. ~{~A ~} (~F) [count: ~:d] [states:~{ ~A~}]~%" i (mapcar 'cleanup-phone-string history) score count (bl:truncate-list states 8))
-	     ;;(format t "          ~:d. ~{~A ~} (~F) [count: ~:d]~%" i (mapcar 'cleanup-phone-string history) score count)
 	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d] [states:~{ ~A~}]~%" i history score count (bl:truncate-list states 8))
-	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d]~%" i history score count)
-	     ))))
+	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d]~%" i history score count)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -238,14 +235,12 @@
   "Get a language model score for the word (ending?) at state 'state-id'.
    Function calls from this function end up consing, because they need to construct a list
    representing the word history."
-  ;;(declare (optimize (speed 3)))
   ;; Get a LM score...
   (let* ((hmm (t-hmm trellis))
 	 (bp (aref (the (simple-array (or back-pointer null)) (t-previous-frame-back-pointer-vector trellis)) state-id))
 	 (new-word (aref (the (simple-array (or string null)) (language-hmm-hmm-state-words hmm)) state-id))
 	 (new-word-normalized (remove-alt-pron-marker new-word))
 	 (lm-score (get-back-pointer-lm-score bp new-word-normalized)))
-    ;;(format t "LM score: ~A~%" lm-score)
     (coerce lm-score 'single-float)))
 
 (defun get-hmm-match-score (trellis emitting-state)
@@ -258,8 +253,6 @@
 	 (distribution-id (svref (language-hmm-emission-distributions hmm) emitting-state)) ;; this should be null or an integer
 	 (cached-match (when distribution-id (svref (t-gaussian-match-cache trellis) distribution-id)))
 	 (distribution (svref (acoustic-model-gmms *acoustic-model*) distribution-id)))
-    ;; (unless distribution-id
-    ;;   (error "Trying to get match score for non-emitting state!"))
     ;; If it's not yet cached, compute the match score and save it.
     (unless cached-match
       (setf (svref (t-gaussian-match-cache trellis) distribution-id) (funcall 'log-gaussian-mixture-probability (t-frame-features trellis) distribution)))
@@ -274,15 +267,13 @@
        (setf (svref (t-gaussian-match-cache trellis) distribution-id) match)
        (format t "ID: ~:D  SCORE: ~F SCALED: ~F~%" distribution-id match scaled-match)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; The actual search ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-user::section "The actual search")
 
-
-;; Most of the consing is probably happening in the places where we get the LM score...
+;; Most of the consing is probably happening in the places where we get the LM score.
 
 (defun search-illusory-trellis (input-sequence hmm &key
 				(relative-threshold nil) (beam-threshold nil) (max-width nil)
@@ -296,8 +287,7 @@
   "The main trellis search function.  Unlike previous version of this function, the full
    trellis is never explicitly constructed (a huge efficiency gain), thus this function
    searches the 'illusory' trellis, not a 'real' one.  (This function may need to be re-written)."
-  (declare ;;(optimize (speed 3))
-	   ((simple-array simple-array) input-sequence))
+  (declare ((simple-array simple-array) input-sequence))
   
   ;; Make sure all the arrays in the trellis are simple vectors
   (make-language-hmm-simple hmm)
@@ -309,7 +299,6 @@
 				      :match-function compare-function :use-lm use-lm :insertion-penalty insertion-penalty :language-weight language-weight :log-base log-base))
 	 (nodes-visited 0))
     (declare (fixnum width nodes-visited height))
-    ;;(when verbose (format t "State count: ~:D~%" height))
     (format t "State count: ~:D~%" height)
     (setf (sbit (t-active-nodes trellis) (language-hmm-start-state hmm)) 1) ;; Make the start state active...
     (setf (svref (t-scores trellis) (language-hmm-start-state hmm)) 0.0)      ;; Start with a zero score
@@ -320,7 +309,6 @@
        for active-state-count = (count 1 (the simple-bit-vector (t-active-nodes trellis))) 
        for best-score = (get-best-score (t-active-nodes trellis) (t-scores trellis)) do
 	 (when debug (format t "Working on column # ~5:D of ~5:D.  Active state count ~8:D.  Best score: ~,1f~%" (1+ i) width active-state-count best-score) (force-output))
-	 ;;(assert (= active-state-count non-nil-scoring-state-count))
 	 ;; Do pruning here, first, so we don't prune the path to the final state on the last iteration/column
 	 (cond ((and beam-threshold relative-threshold)
 		(error "Can't perform beam threshold and relative threshold simultaneously!"))
@@ -439,7 +427,6 @@
 					   (back-pointer-pos-tag-back-pointers previous-back-pointer)))
 	    ))))
 
-
 (defun update-cumulative-score-with-lm (begin-state trellis cumulative-score)
   "Get a LM score for the ending word, adjust the log base, scale by the language weight,
    add to the cumulative score along with the insertion penalty."
@@ -489,13 +476,11 @@
 					    :acoustic-score (- cumulative-score (the single-float previous-cumulative-score)))))
       back-pointer)))
 
-
 ;; ~73% OF THE TIME IS IN THE FUNCTION (WHEN DOING A FLAT DECODE)
 (defun push-to-state (begin-state end-state cumulative-score trellis previous-back-pointer &key (debug nil) (verbose nil));; recursion-depth)
   "Advance from active state 'begin-state' to 'end-state', accumulating all the various components of the score as we go.  If end-state
    is not an emitting state, then call this function recursively on all of end-state's successors until we reach an emitting state."
   (declare (optimize (speed 3))
-	   ;;(optimize (debug 3))
 	   (single-float cumulative-score))
   (let* ((hmm (t-hmm trellis))
 	 (emitting-state end-state) ;; seems like this could go either way...
@@ -520,10 +505,7 @@
 	  (when (and (not (elt (the (simple-array (or cons null)) (language-hmm-transitions hmm)) end-state))
 		     (or (not (aref (the (simple-array (or null single-float)) (t-next-scores trellis)) end-state))
 			 (> cumulative-score (aref (the (simple-array (or null single-float)) (t-next-scores trellis)) end-state))))
-	    
-	    ;; ONLY TEMPORARILY REMOVE THIS FOR DEVELOPMENT... THIS ASSERTION SHOULD ALWAYS HOLD!!!
-	    ;;(assert (= end-state 3))
-	    
+	    (assert (= end-state 3))
 	    (setf (aref (the (simple-array (or null back-pointer)) (t-frame-back-pointer-vector trellis)) end-state) previous-back-pointer)
 	    (setf (aref (the (simple-array (or null single-float)) (t-next-scores trellis)) end-state) cumulative-score)))
 	;; If it is emitting...
@@ -539,8 +521,7 @@
 	      (setf (svref (t-frame-back-pointer-vector trellis) end-state) previous-back-pointer)
 	      (setf (svref (t-next-scores trellis) end-state) cumulative-score)   
 	      (vector-push previous-back-pointer (t-back-pointer-table trellis)))
-	    )))
-    ))
+	    )))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -664,7 +645,6 @@
 	  (setf (aref active-node-list e) 0)
 	  (incf pruned-nodes-count))))
     (setf active-node-count-after-pruning (count 1 active-node-list))
-    ;;(when verbose (format t "  Nodes pruned: ~10:D (Scores; Best: ~8,3e; Thresh: ~8,3e; Diff: ~,3e). Remaining active nodes: ~8:D.~%" pruned-nodes-count best threshold (- best threshold) active-node-count-after-pruning))
     (when verbose (format t "  Nodes pruned: ~10:D (Scores; Best: ~8,3f; Thresh: ~8,3f; Diff: ~,3f). Remaining active nodes: ~8:D.~%" pruned-nodes-count best threshold (- best threshold) active-node-count-after-pruning))
     (values pruned-nodes-count best threshold (- best threshold))))
 

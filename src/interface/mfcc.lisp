@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -9,7 +9,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-user::section "Read/write MFCC feature transformation files")
-
 
 ;; Not sure if this is right... try to find out?
 (defun unextract-mfcc-features (mfccs &key (feature-count 13))
@@ -34,7 +33,6 @@
       (push (subseq samples (* i feature-count) (* (1+ i) feature-count)) frames))
     (nreverse frames)))
 
-;;(defun read-mfcc-file-internal1 (filename &key (feature-count 13))
 (defun read-raw-mfccs (filename &key (feature-count 13))
   (with-open-file (f filename :direction :input :element-type '(unsigned-byte 32))
     (let* ((header (byte-swap (read-byte f)))
@@ -83,7 +81,6 @@
 	(setf mfccs (map 'vector (lambda (x) (subseq x 0 ldadim)) mfccs))))
     mfccs))
 
-
 ;; This is a pretty generic function
 (defun sequence-subtract (seq1 seq2 &key (start 0) (end nil) (length nil))
   "Subtract elements from seq2 from seq1, but only within the specified bounds."
@@ -105,28 +102,25 @@
        for feature-array = (make-array feature-count :element-type 'single-float :initial-element 0.0) do
 	 (setf (aref frames i) feature-array)
 	 (replace feature-array (elt data i)))
-
     ;; Compute velocity features
     (loop for i from 2 below (- frame-count 2)
 	 for frame = (aref frames i) do
 	 (replace frame (sequence-subtract (aref frames (+ i 2)) (aref frames (- i 2)) :length cep-count)
 		  :start1 cep-count))
     ;; First 2 columns velocity
-    (replace (aref frames 0) (aref frames 2) :start1 cep-count :start2 cep-count) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))
-    (replace (aref frames 1) (aref frames 2) :start1 cep-count :start2 cep-count) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))    
+    (replace (aref frames 0) (aref frames 2) :start1 cep-count :start2 cep-count)
+    (replace (aref frames 1) (aref frames 2) :start1 cep-count :start2 cep-count)
     ;; Last 2 columns velocity
-    (replace (aref frames (- frame-count 1)) (aref frames (- frame-count 3)) :start1 cep-count :start2 cep-count) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))
-    (replace (aref frames (- frame-count 2)) (aref frames (- frame-count 3)) :start1 cep-count :start2 cep-count) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))    
-   
+    (replace (aref frames (- frame-count 1)) (aref frames (- frame-count 3)) :start1 cep-count :start2 cep-count)
+    (replace (aref frames (- frame-count 2)) (aref frames (- frame-count 3)) :start1 cep-count :start2 cep-count)
     ;; Compute acceleration features
     (loop for i from 1 below (- frame-count 1)
 	 for frame = (aref frames i) do
 	 (replace frame (sequence-subtract (aref frames (+ i 1)) (aref frames (- i 1)) :start cep-count :length cep-count)
 		  :start1 (* cep-count 2)))
     ;; First and last column acc
-    (replace (aref frames 0) (aref frames 1) :start1 (* cep-count 2) :start2 (* cep-count 2)) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))
-    (replace (aref frames (- frame-count 1)) (aref frames (- frame-count 2)) :start1 (* cep-count 2) :start2 (* cep-count 2)) ;; :end1 (* cep-count 2) :end2 (* cep-count 2))
-
+    (replace (aref frames 0) (aref frames 1) :start1 (* cep-count 2) :start2 (* cep-count 2))
+    (replace (aref frames (- frame-count 1)) (aref frames (- frame-count 2)) :start1 (* cep-count 2) :start2 (* cep-count 2))
     frames))
 
 (defun print-mfccs (frames)

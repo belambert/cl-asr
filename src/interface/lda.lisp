@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -41,7 +41,6 @@
 	       (checksum (when checksum-p (alexandria:last-elt seq)))
 	       (computed-checksum (when checksum-p 0))
 	       (data (subseq seq 4 (+ data-length-given 4)))
-	       ;;(data-array (make-array (list feature-stream-count cepstral-feature-count transformed-feature-count)))
 	       (data-array (make-array (list cepstral-feature-count transformed-feature-count)))
 	       (data-length (length data))
 	       (computed-data-length (* feature-stream-count cepstral-feature-count transformed-feature-count)))

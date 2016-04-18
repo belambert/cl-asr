@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)x
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)x
 
 (cl-user::file-summary "Defines the sphinx-l package.")
 
@@ -12,8 +12,7 @@
   ;; Alexandria has a 'variance' and 'mean' function that we have to shadow...
   (:shadow :variance :mean)
   (:export :dictionary-word-phoneme-map
-	   :read-dictionary
-	   ))
+	   :read-dictionary))
 
 
 

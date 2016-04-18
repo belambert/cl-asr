@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -34,10 +34,8 @@
     ;; Keep track of what word/triphone we're putting here..
     (fill (language-hmm-hmm-state-phonemes hmm) triphone :start first-state :end (1+ last-state))   ;; Save which triphone this is...
     (fill (language-hmm-hmm-state-words hmm) word :start first-state :end (1+ last-state))          ;; Save which word this is...
-
     (fill (language-hmm-word-id hmm) word-id :start first-state :end (1+ last-state))               ;; Save the word id
     (fill (language-hmm-phone-id hmm) (language-hmm-triphone-count hmm) :start first-state :end (1+ last-state))             ;; Save the phone id
-
     (setf (gethash (language-hmm-triphone-count hmm) (language-hmm-phone-id-table hmm)) triphone)
 
     ;; Increment the number of triphones in the model (also used as the triphone ID)
@@ -67,7 +65,6 @@
 
 (defun add-triphone-seq-to-hmm (&key hmm triphone-seq source-state dest-state word word-final log-base word-id)
   "Convenience function... calls the function above, but on a sequence of triphones, chaining them together in series."
-  ;;(assert dest-state) (assert source-state)
   (let ((initial-state nil)
 	(final-state nil)
 	(prev-last-state nil)

@@ -1,4 +1,4 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -19,7 +19,6 @@
 						 :silence-penalty silence-penalty
 						 :insertion-penalty word-insertion-penalty)))
     lang-hmm))
-
 
 (defun build-flat-bigram-fsm (vocab)
   "Given a vocabulary, build a bigram FSM.  This FSM has leading and trailing silences.
@@ -86,5 +85,4 @@
 	      :edge-list (nreverse edge-list)
 	      :node-list (nreverse node-list)
 	      :edge-count edge-count
-	      :vocab vocab)
-    ))
+	      :vocab vocab)))

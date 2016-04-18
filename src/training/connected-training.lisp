@@ -1,4 +1,4 @@
-;;;; Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -235,13 +235,11 @@
 	      (incf likelihood-sum likelihood))))
     (format t "Log likelihood: ~f~%" (- likelihood-sum))(force-output t)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Core training/model update methods     ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-user::section "Core training/model update methods")
-
 
 (defun retrain-models-from-segmented-examples (examples vocab-list previous-models &optional (state-count 5))
   "Given some segmented example audio, re-train the word models."

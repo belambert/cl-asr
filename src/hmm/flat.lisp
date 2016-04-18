@@ -1,9 +1,8 @@
-;;;; Author: Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
 (cl-user::file-summary "'Flat' decoding structures")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Adding flat words to the language HMM ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -71,21 +70,16 @@
     (let ((prev-state nil)
 	  (dest-state nil))
       (loop for phone-position in triphone-seq
-	 for i from 0 below phone-count do
-	   
+	 for i from 0 below phone-count do	   
 	   ;; Create a non-emitting destination state, *for the first phone only*
 	   (when (and (= i 0) (not dest-state))
 	    (setf dest-state (get-new-language-hmm-state hmm)))
-
 	   (when dest-state
 	     (setf (aref (language-hmm-word-id hmm) dest-state) word))
-
 	   ;; This asserts that we only have one version of each middle phone...
 	   (when (and (/= i 0) (/= i (1- phone-count)))
 	     (assert (= (length phone-position) 1)))
-
 	   (if (> (length phone-position) 1)
-	       
 	       (cond (;; The first and only
 		      (and (= i 0) (= i (1- phone-count)))
 		      (add-parallel-triphones-to-hmm :hmm hmm :triphones phone-position :source-state prev-state :dest-state dest-state :entry-table entry-table :exit-table exit-table :word word :word-final t :word-id word))
@@ -131,9 +125,7 @@
   "Remove duplicates from the loop back table."
   (loop for key being the hash-keys of table
      for value = (gethash key table) do
-       ;;(setf (gethash key table) (remove-duplicates value :test '=))
-       (setf (gethash key table) (bl:remove-duplicates-fast value :ht-test 'eql))
-       ))
+       (setf (gethash key table) (bl:remove-duplicates-fast value :ht-test 'eql))))
 
 (defun get-prefix-agnostic-phone-keys (table)
   "Get a list of all the phone keys that are agnostic to the left context."

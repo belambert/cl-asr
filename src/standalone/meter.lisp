@@ -1,4 +1,4 @@
-;;;; Benjamin E. Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert (ben@benjaminlambert.com)
 
 (declaim (optimize (debug 3)))
 (in-package :sphinx-l)
@@ -24,7 +24,6 @@
     (update-meter (random n) :max n)
     (sleep 1)))
 
-
 ;; Can I do this with a little ASCII "meter" ?? Using the linefeed character
 ;; See meter.lisp .... works in the shell... but not emacs on Mac..?
 ;;(defun live-level-meter (&optional (samples-per-segment 22050) (segments 20))   ;; default to about 10 seconds
@@ -34,7 +33,6 @@
   "This is supposed to periodically output the total line level meter."
   (let ((segments (ceiling (/ seconds update-freq)))
 	(samples-per-segment (truncate (* sample-rate update-freq)))
-	;;(max-volume 0.1)
 	(max-volume 1000)
 	)
     (display-meter 0 :max max-volume)
@@ -49,6 +47,3 @@
 	    (format t "Level: ~A~%" level))
 	;;(error (e) (when verbose (format t "Skipping segment... ~A~%" e))))
       (force-output t))))
-
-
-
