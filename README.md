@@ -2,27 +2,26 @@
 Lisp ASR decoder
 ============
 
-ASR decoder written in Common Lisp.
+ASR decoder written in Common Lisp.  Uses acoustic models trained by Sphinx.
 
-Uses acoustic models trained by Sphinx.
-
-Can be run in batch mode on Sphinx feature extracted files.
-
-The 'standalone' component, operates on raw WAV files and does the feature extraction internally.
+Can be run in batch mode on Sphinx feature extracted files.  The 'standalone' component operates on raw WAV files and does the feature extraction internally.
 
 
 Command line usage
 ------------------
 
 Run from the command line args similar to Sphinx3 decode:
-`scripts/sphinxlisp_decode.sh`
+```bash
+scripts/sphinxlisp_decode.sh
+```
 
 API usage
 ---------
 
 To Load a Sphinx3 model:
 ```lisp
-(defun load-s3-model (&key folder mdef mean var mixw tmat lda dict))```
+(defun load-s3-model (&key folder mdef mean var mixw tmat lda dict))
+```
 
 Example:
 ```lisp
@@ -36,5 +35,6 @@ The lanugage model gets loaded like so:
 
 The main function for training models
 ```lisp
-(TRAIN-MODEL filename)```
+(TRAIN-MODEL filename)
+```
 
