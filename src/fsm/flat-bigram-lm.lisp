@@ -1,10 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com)
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Basic hashtable-based bigram LM for decoding.")
-
-(cl-user::section "Language modeling.")
 
 (defun build-flat-bigram-lang-hmm-from-vocab (vocab &key (model-source :phone) (transition-score-function 'negative-log) word-insertion-penalty silence-penalty)
   "Build a language HMM from a bigram LM and a model directory (of word/phoneme models?)."
@@ -31,12 +28,10 @@
 	 (start-state 0)
 	 (end-state (1- state-count))
 	 (edge-count 0))
-
     ;; ***************************************************************
     ;; create the nodes... just 4 though!  words are on the edges!
     (dotimes (i state-count)
       (push (make-fsm-node :id i :lang-hmm-id i) node-list))
-
     ;; ***************************************************************
     ;; Create an edge from state 0 to state 1, labeled with a silence
     (push (make-fsm-edge :id edge-count
@@ -44,7 +39,6 @@
 			 :destination-id 1
 			 :label "<sil>") edge-list)
     (incf edge-count)
-
     ;; ***************************************************************
     ;; Create an edge for each word in the vocab
     (push "<sil>" vocab)
@@ -60,7 +54,6 @@
 				 :label word)))
 	(push edge edge-list)
 	(incf edge-count)))
-
     ;; ***************************************************************
     ;; Create a loop back from state #2 to state #1
     (push (make-fsm-edge :id edge-count
@@ -68,7 +61,6 @@
 			 :destination-id 1
 			 :label nil) edge-list)
     (incf edge-count)
-
     ;; ***************************************************************
     ;; The add the last edge, the only one into the final state, which is a silence
     (push (make-fsm-edge :id edge-count

@@ -1,12 +1,12 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "The class representation of an HMM (semi-deprecated)")
+
+;;;; The class representation of an HMM (semi-deprecated)")
 
 ;; Will we still be using this...?
 ;; We're still using this in the FSM-based language HMM code, and training
-
 (defclass* hmm ()
   ((word nil :type string)
    (left-context nil :type string)

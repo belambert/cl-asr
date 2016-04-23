@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx model definition files.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read model definition file ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Read model definition file")
 
 (defun integer-first-token (string)
   "Given a string, get the first token (defined as space-separated),
@@ -94,6 +91,3 @@
 			     :state-ids (list s1 s2 s3))
 	       triphones)))
     (values (nreverse triphones) n-tied-state)))
-
-
-

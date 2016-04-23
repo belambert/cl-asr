@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx gaussian model files (means or variances).")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read/write Sphinx Gaussian files - either means or variances ;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Read/write Sphinx Gaussian files - either means or variances")
 
 (defun read-gaussian-verbose (&key checksum-p checksum computed-checksum state-count feature-stream-count density-count cepstral-feature-count data-length-given)
   "Print summary information while reading a Sphinx Gaussian file."
@@ -88,4 +85,3 @@
 		 (loop for l from 0 below (array-dimension data 3) do
 		      (format stream "~,3,2e " (aref data i j k l)))
 		 (format stream "~%")))))
-

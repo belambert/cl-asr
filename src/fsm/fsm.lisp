@@ -1,10 +1,9 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Representation of a finite state machine... (for finite state grammars?)")
 
-(cl-user::section "FSM and Language HMM data structures")
+;;;; Representation of a finite state machine... (for finite state grammars?)
 
 (defstruct fsm-node
   "A node in a finite state machine for recognition."
@@ -29,9 +28,6 @@
   edge-list
   edge-count
   vocab)
-
-
-(cl-user::section "Build FSM from grammar file")
 
 (defun read-finite-state-grammar (filename)
   "Read a finite state machine specification from a file into a structure."
@@ -78,11 +74,3 @@
   "Load a FSM grammar from a file."
   (let ((fsm (read-finite-state-grammar filename)))
     (create-language-hmm-from-fsm fsm *acoustic-model*  :model-source model-source :silence-penalty silence-penalty :insertion-penalty word-insertion-penalty)))
-
-
-
-
-
-
-
-

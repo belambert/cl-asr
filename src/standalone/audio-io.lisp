@@ -1,16 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com)
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Input and output of audio files")
-
-(cl-user::todo "Large portions of this file are probably largely obsolete at this point.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Our internal audio representation          ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Our internal audio representation.")
 
 (defstruct (audio-segment
 	     (:print-function
@@ -26,7 +21,7 @@
   id
   source
   sample-rate
-  sample-resolution ;;??
+  sample-resolution
   transcript
   samples
   filename)
@@ -34,9 +29,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; High-level audio recording and playback  ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "High-level audio recording and playback")
-
 
 #+port-audio
 (defun record-audio (&key (seconds 2.0) (sample-rate 16000d0) (show-spectrogram nil) (transcript nil) (device-index 0))
@@ -89,7 +81,6 @@
     (format t "Encoding(?):   ~A~%" encoding)
     ;; Try to play it...
     (port-audio:write-audio-samples samples :sample-rate (coerce rate 'double-float) :channel-count channels)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Modify transcripts ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -174,8 +165,6 @@
 ;;;;; Audio already represented as MFCC features ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Audio already represented as MFCC features.")
-
 (defun load-mfcc-audio (filename)
   "Load an MFCC audio file.  MFCC features have already been computed."
   (let* ((mfcc (load-object filename))
@@ -190,8 +179,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; AUDIO READ-WRITE-SAVING AND LOADING  ;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Audio, read/write saving and loading.")
 
 (defun save-audio-file (audio filename)
   "Save an audio segment to a very basic, inefficient ASCII text file.
@@ -222,7 +209,3 @@
       (setf (audio-segment-samples audio-segment) (read file-stream nil))) ;; the last one is a little different, because it's not all on one line...
     (setf (audio-segment-filename audio-segment) filename)
     audio-segment))
-
-
-
-

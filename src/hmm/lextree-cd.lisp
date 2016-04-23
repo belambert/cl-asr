@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com)
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "CD phone lextree decoding")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Creating a cons cell-based tree of phone specifiers -- this is essential ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Creating a cons cell-based tree of phone specifiers -- this is essential.")
 
 (defun vocab->triphone-lextree (vocab)
   "Given a list of words, convert it to a cons-cell based tree of phone (not tri-phone) specifiers.
@@ -37,8 +34,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Constructing a basic version of a CD lextree lang hmm -- no fancy wrap-around, CD phones internal, CI phones at boundaries ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Constructing a basic version of a CD lextree lang hmm -- no fancy wrap-around, CD phones internal, CI phones at boundaries")
 
 (defun build-cd-lextree-basic (vocab acoustic-model log-base)
   "Constructing a basic version of a lextree trellis -- no fancy wrap-around, CD phones internal, CI phones at boundaries."
@@ -81,8 +76,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Constructing a true CD lextree lang hmm with CD phone everywhere (potentially) and context on wrap-around ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Constructing a true CD lextree lang hmm with CD phone everywhere (potentially) and context on wrap-around")
 
 (defun build-cd-lextree (vocab acoustic-model log-base &key (loop-back :basic) left-ci right-ci)
   "Constructing a true CD lextree lang hmm with CD phone everywhere (potentially) and context on wrap-around."
@@ -160,6 +153,4 @@
     ;; Recurse
     (dolist (subsubtree subtree)
       (build-cd-lextree-recursive subsubtree :hmm hmm :source-state end-state :lc root :entry-table entry-table :exit-table exit-table :left-ci left-ci :right-ci right-ci))))
-
-
 

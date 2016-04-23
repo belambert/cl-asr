@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx LDA transformation matrix files.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read/write feature transformation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Read/write feature transformation")
 
 (defun read-feature-transform-verbose (&key checksum-p checksum computed-checksum feature-stream-count
 				       cepstral-feature-count transformed-feature-count data-length-given)
@@ -65,5 +62,3 @@
 	    (loop for k from 0 below (array-dimension data 2) do
 		 (format stream "~,6,2e " (aref data i j k)))
 	    (terpri stream))))
-
-

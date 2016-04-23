@@ -1,8 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Visualization of audio and trellises")
 
 (defun cepstra->spectra (cepstra &key (log t))
   "Convert cepstrum features into spectrum features using an Inverse Discerete Cosine Transform."
@@ -21,8 +20,6 @@
 ;;;;;  GNUPLOT SETUP/USE FUNCTIONS   ;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Low-level function that interface with gnuplot")
-
 (defun spectral-analyses->lists (spectral-analyses)
   "Convert a list of spectral analysis structs into a list of lists that we can give to the heat mapper."
   (let ((lists '())
@@ -38,8 +35,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Visualization of spectra/cepstra ;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Visualization of spectra/cepstra")
 
 (defun show-spectrogram (audio &optional filename)
   "Show the spectrogram for some audio."
@@ -127,8 +122,6 @@
 ;;;;;  TRELLIS VIZUALIZATION   ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Visualization of the trellis.")
-
 (defun print-trellis-new (trellis-array &key filename (normalize-score nil))
   "Print a graphical representation of a trellis."
   (declare (ignore normalize-score))
@@ -150,10 +143,6 @@
 ;;;;; Visualize language HMM ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Visualize language HMM")
-
-(cl-user::todo "Better to visualize it with OpenFST?")
-
 (defun language-hmm->sif-file (hmm sif-filename)
   "Convert a language HMM to sif file format.  SIF network files can be visualized with the program 'Cytoscape'."
   (with-open-file (file sif-filename :direction :output :if-exists :supersede :if-does-not-exist :create)
@@ -167,5 +156,3 @@
 			   (format nil "~{~A~^-~}-~A" (elt (language-hmm-word-state-map hmm) j) j)
 			   j)))
 	   (format file "~A ~A ~A~%" source "edge" dest))))))
-
-

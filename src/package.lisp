@@ -1,8 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)x
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(cl-user::file-summary "Defines the sphinx-l package.")
-
-;; This probably isn't the right place for this... but it's as good as any?!?
+;; This probably isn't the right place for this... but it's as good as any?
 ;;#-darwin
 ;;(port-audio::pa-initialize)
 

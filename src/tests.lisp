@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Regression tests")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;  Regression test: make sure program updates haven't broken anything   ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Regression test: make sure program updates haven't broken anything")
 
 (defun decoder-regression-test (&key verbose)
   "Run a few test on the recogntion of digits."
@@ -61,9 +58,3 @@
 			:phone-or-word :phone
 			:dictionary "./misc/dict/numbers.dict"))
 			     
-
-
-
-
-
-

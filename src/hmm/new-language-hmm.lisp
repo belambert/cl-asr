@@ -1,8 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "New (and improved!) version of function to add triphones to a language HMM")
 
 (defun create-template-language-hmm (acoustic-model log-base)
   "This function creates a basic template language HMM that can be augmented to create a real, useful language HMM."
@@ -91,5 +90,3 @@
   (loop for triphone in triphones do
        (add-triphone-to-hmm :hmm hmm :triphone triphone :source-state source-state :dest-state dest-state :word word :word-final word-final :log-base log-base :entry-table entry-table :exit-table exit-table  :word-id word-id))
   (values source-state dest-state))
-
-

@@ -1,15 +1,14 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com)
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "The original language HMM construction code -- for constructing a language HMM from a word FSM")
+
+;;;; The original language HMM construction code -- for constructing a language HMM from a word FSM
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; This part if for alignment/training... ;;;;;;;;;;;;;;;;;;;;;
+;;; This part is for alignment/training... ;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "This part if for alignment/training...")
-					      
 (defvar *silence-id-string* "<sil>"
   "String that designates silence (e.g. 'SIL', '<SIL>', 'SILENCE').  Alternatively,
    we might want this to be a set of strings.")
@@ -53,15 +52,11 @@
 	      :edge-list (nreverse edge-list)
 	      :node-list (nreverse node-list)
 	      :edge-count (length edge-list)
-	      :vocab vocab)
-    ))
-
+	      :vocab vocab)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Composing word HMMs from phone HMMs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Composing word HMMs from phone HMMs")
 
 (defun compose-word-hmm-from-phoneme-models-ci (phone-table word)
   "Compose a *regular* HMM (as opposed to a language HMM) from CONTEXT INDEPENDENT phone models.
@@ -182,13 +177,9 @@
 	  (setf (gethash word word-hmm-table) word-hmm))))
     (values word-hmm-table word-hmm-state-count-table)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Construction of language HMMs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Construction of language HMMs")
-
 
 (defun number-hmm-states (fsm word-hmm-state-count-table)
   "Uniquely number all the states in the language HMM.  The FSM stores the state IDs."
@@ -245,8 +236,7 @@
 		 ;; Make a transition to the next state, if we're not at the end of the word
 		 (if (= i end)
 		     (setf (aref word-final-state i) t)  ;; Keep track of which are the word final states; the back pointer table needs them
-		     (connect-lang-hmm-states i (1+ i) lang-hmm (log (aref (hmm-transition-probabilities word-hmm) word-hmm-state-id (1+ word-hmm-state-id)))))
-		 ))))))
+		     (connect-lang-hmm-states i (1+ i) lang-hmm (log (aref (hmm-transition-probabilities word-hmm) word-hmm-state-id (1+ word-hmm-state-id)))))))))))
   
 (defun create-language-hmm-from-fsm (fsm phone-hmm-table &key (model-source :phone) silence-penalty insertion-penalty ci)
   "Given an FSM specification and a folder containing word HMMs, create a language HMM.

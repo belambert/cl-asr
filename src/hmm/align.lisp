@@ -1,8 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com)
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Constructing language HMMs to use for alignment")
 
 (defun build-align-language-hmm (words acoustic-model log-base &key (allow-alt-pron t))
   "Build an alignment language HMM.  This is the main function to call."
@@ -73,14 +72,3 @@
 	 (when add-optional-silences (add-triphone-to-hmm :hmm hmm :triphone sil-phone :word "<sil>" :word-final t :log-base log-base :source-state prev-last-state :dest-state prev-last-state)))
     ;; Connect to state #2 (where the closing silence is).
     (connect-lang-hmm-states prev-last-state 2 hmm 0.0)))
-
-
-	
-
-
-       
-
-
-
-
-

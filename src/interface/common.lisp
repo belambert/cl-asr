@@ -1,15 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Some common functions for reading binary Sphinx files.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Helper functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Helper functions")
 
 (defun check-header-history (history header-marker)
   "Given some stream history (which is reversed), and the designated header marker,
@@ -65,5 +61,3 @@
   (rotatef (ldb (byte 8 0) i) (ldb (byte 8 24) i))
   (rotatef (ldb (byte 8 8) i) (ldb (byte 8 16) i))
   i)
-
-

@@ -1,11 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-
-(cl-user::file-summary "Input and output of model files")
-(cl-user::todo "Large portions of this file are probably largely obsolete at this point.")
-(cl-user::section "Data strutures and function for loading and saving Gaussians to files.")
 
 (defstruct disk-gaussian
   "Less strictly typed version of gaussian.  More suitable to read/write from disk."
@@ -41,10 +37,6 @@
 (defun load-gaussian (filename)
   "Load a gaussian from a file."
   (disk-gaussian->gaussian (load-object filename)))
- 
-
-(cl-user::section "Data strutures and function for loading and saving word/phoneme HMMs to files.")
-
 
 (defstruct disk-hmm
   "The disk version of an HMM.  Contains different structure types."

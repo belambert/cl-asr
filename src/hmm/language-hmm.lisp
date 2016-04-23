@@ -1,18 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Representation/creation of language HMMs")
-
-;; TODO - CLEAN-UP AND COMMENT THIS FILE!!
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Language HMM representation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Language HMM representation")
-
-(cl-user::todo "Rationalize the language HMM representation.  At the very least in the naming.")
 
 (defstruct language-hmm
   "A language HMM.  This is constructed by replacing the edges in an FSM with word HMMs."
@@ -41,8 +34,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Construction of language HMMs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Construction of language HMMs")
 
 (defun set-state-word-final (hmm state)
   (setf (aref (language-hmm-word-final-state hmm) state) t))
@@ -253,7 +244,3 @@
 				     (list phone (elt phone-seq (- i 1)) (elt phone-seq (+ i 1)) :internal)))))
 	       (push triphone triphones))))
     (reverse triphones)))
-
-
-
-

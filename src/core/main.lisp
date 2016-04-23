@@ -1,16 +1,15 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Contains the top-level decoding functions.")
+
+;;;; Contains the top-level decoding functions
 
 (pushnew :sphinx-l *features*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;  Speech Recognition (a.k.a decoding)  ;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Speech Recognition (a.k.a decoding)")
   
 (defun string->words (string)
   "Split a string by spaces into words, and add a silence at the beginning and end.
@@ -101,7 +100,6 @@
 
     ;; The MFCCs, as is, don't work for recreating the spectrogram b/c we'd have to invert the transformation (if applicable),
     ;; and then remove the velocity and acceleration features.
-
     (let* ((mfccs (read-mfcc-file mfcc-file))
 	   (raw-mfccs (read-raw-mfccs mfcc-file)) ;; we use these to if/when we have to show a spectrogram
 	   (lm-vocab (coerce (language-model::vocab *lm*) 'list))

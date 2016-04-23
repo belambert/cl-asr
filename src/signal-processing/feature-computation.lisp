@@ -1,8 +1,12 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Computing MFCC features")
+
+
+;; (blambert-util::memoize 'get-frequency-of-nth-fft-coefficient)
+;; (blambert-util::memoize 'get-mel-filter-bank-coordinates)
+;; (blambert-util::memoize 'convert-mel-filter-coordinates-to-mask-array)
 
 (defstruct mfcc-sequence
   "Defines the computed features for an audio segment, along with as much meta-data as possible."
@@ -26,8 +30,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; RECORDING AND PLAYBACK  ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Recording and playback")
 
 (defun print-dft-analysis (struct stream depth)
   "Simple helper function for printing a DFT analysis object.
@@ -59,8 +61,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; SAMPLE PROCESSING FUNCTIONS... ;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Sample processing functions")
 
 (defun split-audio-into-frames (audio &key (frame-length 25) (frame-delta 10) verbose)
   "Given an audio segment, chop it up into frames."
@@ -97,8 +97,6 @@
 ;;;;;;;;; PREEMPHASIS  ;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Pre-emphasis")
-
 (defun preemphasize-sample-list (sample-list &optional (alpha 0.95))
   "Given a list of samples perform 'pre-emphasis' which effectively boosts the volume of
    the higher frequencies in the signal.  Equation is something like:
@@ -117,10 +115,8 @@
   audio)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;; CEPSTRA MEAN NORMALIZATION  ;;;;;;;;;;
+;;;;;;;;; CEPSTRA MEAN NORMALIZATION  ;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Cepstra mean normalization")
 
 (defun cepstra-mean-normalization (cepstra-list)
   "Given a list of ceptra vectors, compute the mean of all the vectors, then subtract the
@@ -131,10 +127,8 @@
     cepstra-list))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; MEL FILTER/MFCC CODE ;;;;;;;;;;
+;;;;; MEL FILTER/MFCC CODE ;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Mel filter/ MFCC code")
 
 (defun mel (f)
   "The mel function."
@@ -165,7 +159,6 @@
 	      mel-filters)))
     (nreverse mel-filters)))
 
-(blambert-util::memoize 'get-mel-filter-bank-coordinates)
 
 (defun mel-filter (begin middle end frequency value)
   "Apply the mel filter triplet, at the given frequency to the given value."
@@ -210,9 +203,6 @@
 	 (float-frequency (float frequency)))
     (the single-float float-frequency)))
 
-(blambert-util::memoize 'get-frequency-of-nth-fft-coefficient)
-	
-
 (defun convert-mel-filter-coordinates-to-mask-array (filter sample-count sampling-rate)
   "Convert a Mel filter into a FFT coefficient mask array.  This way we can simply apply the filter by
    taking the dot product of the mask and the output of the DFT.
@@ -227,8 +217,6 @@
 	  (setf (aref mask i)
 		(mel-filter begin-freq peak-freq end-freq frequency 1.0)))))
     mask))
-
-(blambert-util::memoize 'convert-mel-filter-coordinates-to-mask-array)
 
 (defun dot-product (a b)
   "An optimized dot product function.  Requires that the vectors be simple arrays of single-floats between
@@ -288,10 +276,8 @@
     spectrogram))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; SIGNAL PROCESSING FUNCTIONS?!?!  ;;;;;;;
+;;;;; SIGNAL PROCESSING FUNCTIONS  ;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Signal processing functions")
 
 (defun pad-sample-list-to-power-of-two (sample-list)
   "Zero-padding function."
@@ -305,8 +291,6 @@
     (setf (subseq array offset (+ length offset)) sample-list)
     array))
 
-(cl-user::todo "Try other windowing functions?")
-
 (defun zero-pad-and-fft-audio-segment (audio)
   "Given some audio zero pad it up to the next power of two; compute DFT; and return the DFT analysis."
   (let* ((sample-list (audio-segment-samples audio))
@@ -316,8 +300,7 @@
     (map-into coefficient-array (lambda (x) (coerce (abs (the (complex double-float) x)) 'single-float)) dft-coefficients) ;; abs. value of the complex numbers... to get the magnitudes
     (map-into coefficient-array (lambda (x) (expt (the single-float x) 2)) coefficient-array) ;; take the square to get the power
     (make-dft-analysis :coefficient-list coefficient-array
-		       :original-sampling-rate (truncate (audio-segment-sample-rate audio))) ;; convert it to an integer...
-    ))
+		       :original-sampling-rate (truncate (audio-segment-sample-rate audio))))) ;; convert it to an integer...
    
 (defun dft-analysis->frequency-band-analysis (dft-analysis &key (bands nil)) ;;&key (bands 200))
   "Convert a DFT analysis into a spectrogram-style analysis."
@@ -370,8 +353,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; MAIN FEATURE COMPUTATION  ;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Main feature computation functions")
 
 ;; This is the biggest offender w.r.t consing
 (defun get-mel-cepstrum (audio &key (filter-bank-size 40) (start-freq 100) (end-freq 4000) (cepstrum-count 13) (frame-length 25) (frame-delta 10))

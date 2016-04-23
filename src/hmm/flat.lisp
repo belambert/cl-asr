@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "'Flat' decoding structures")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Adding flat words to the language HMM ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Adding flat words to the language HMM")
 
 (defun add-flat-ci-word-to-hmm (word hmm)
   "Add a word, flat, with only CI phones to the hmm."
@@ -114,12 +111,9 @@
 	   (setf dest-state nil)
 	   ))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Functions for creating the loop-back links we need for true CD models ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Functions for creating the loop-back links we need for true CD models")
 
 (defun remove-table-duplicates (table)
   "Remove duplicates from the loop back table."
@@ -207,8 +201,6 @@
 ;;;; Other important connections for CD models ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Other important connections for CD models")
-
 (defun make-initial-connections (hmm table)
   "Create edges from state #1 to the word initial phones that begin with a triphone that wants
    a left context of SIL."
@@ -230,12 +222,9 @@
 	 (dolist (state states)
 	   (connect-lang-hmm-states state 2 hmm 0.0)))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; High level functions that return language HMMs ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "High level functions that return language HMMs")
 
 (defun create-flat-ci-language-hmm (vocab acoustic-model log-base)
   "Create a language HMM comprised of flat words that are entirely composed of CI phone models."

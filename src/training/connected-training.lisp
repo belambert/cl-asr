@@ -1,18 +1,11 @@
-;;;; Ben Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Functions for training connected models (as opposed to isolated models) (word or phoneme)")
-
-(cl-user::todo "Question: How does/should this file relate the connected phoneme training file?")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Main training      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Main training")
-
-(cl-user::todo "This struct looks pretty hacky.  Is there a better alternative?")
 
 (defstruct connected-training-example
   "An audio training example.  This consists of both some audio (i.e. mfcc sequence),
@@ -22,9 +15,9 @@
   (lang-hmm nil :type (or language-hmm null))
   segmentation)
 
-(cl-user::todo "This function is really gnarly, e.g. has a fixed vocab, etc.")
-(cl-user::todo "Also, rename this function, it's not just for digits anymore.")
-(cl-user::todo "This is almost identical to the training function for training phoneme models")
+;;; TODO This function is really gnarly, e.g. has a fixed vocab, etc.
+;;; TODO Also, rename this function, it's not just for digits anymore.
+;;; TODO This is almost identical to the training function for training phoneme models
 
 (defun train-from-connected-words (training-data-dir initial-model-dir new-model-dir iterations 
 				   &key (save-intermediate-models nil)
@@ -60,7 +53,6 @@
     (setf vocab-list (sort vocab-list 'string-lessp))
     (format t "Training for vocabulary: ~{~A ~}.~%" vocab-list)
     (format t "Loaded ~A training files.~%" (length examples))
-
     ;;(setf vocab-list '("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "oh" "<sil>"))
     ;; If initial models were not specifed, then create initial models with a uniform segmentation
     (unless initial-word-models
@@ -121,14 +113,9 @@
 	   (setf segmentation (nreverse segmentation))
 	   (setf (connected-training-example-segmentation example) segmentation)))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Training helper functions    ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Training helper functions")
-
-(cl-user::subsection "Initialization")
 
 (defun get-initial-word-hmms (hmm-directory)
   "Given a folder name, read all the .hmm files into a hash table and return
@@ -140,8 +127,6 @@
 	(let ((hmm (load-hmm (format nil "~A/~A" hmm-directory filename))))
 	  (setf (gethash (hmm-word hmm) hmm-table) hmm))))
     hmm-table))
-
-(cl-user::subsection "Model updates")
 
 (defun compose-hmm-for-training-example (mfcc-seq word-hmms &key silence-penalty)
   "Given some audio and a hash-table of word-hmms, construct a simple language 
@@ -165,8 +150,6 @@
    This never gets called?!?!?"
   (make-connected-training-example :features mfc-obj :lang-hmm (compose-hmm-for-training-example mfc-obj word-models :silence-penalty silence-penalty)))
 
-(cl-user::subsection "Finalization")
-
 (defun write-models-to-folder (models folder)
   "Write word HMM models to a folder."
   (loop for word being the hash-keys of models do
@@ -178,8 +161,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Segmentation of training data  ;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Segmentation of training data")
 
 (defun segment-audio-with-lang-hmm (mfc hmm &key (pruning-threshold nil) (segment-unit :word) (display-segmentation nil) debug)
   "Segment audio with a language HMM."
@@ -238,8 +219,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Core training/model update methods     ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Core training/model update methods")
 
 (defun retrain-models-from-segmented-examples (examples vocab-list previous-models &optional (state-count 5))
   "Given some segmented example audio, re-train the word models."

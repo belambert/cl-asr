@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Some convenience functions for doing math on arrays and vectors.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Vector operations ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Vector operations")
 
 (defun vector-norm (array)
   "Given an array of numbers, compute the 'norm': i.e. the sum of sqaures."
@@ -42,12 +39,9 @@
 	   (simple-array seq))
   (reduce (lambda (x y) (declare (single-float x y)) (+ x y)) seq :key 'safe-log))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Matrix operations ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Matrix operations")
 
 (defun matrix-multiply (A B)
   "Compute the matrix product of two 2d arrays.
@@ -106,8 +100,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Simple vector arithmetic -- Used for training? ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Simple vector arithmetic -- Used for training?")
 
 (defun vector-sequence-add (result-type sequence-of-vectors)
   "Given a seqence of 'vectors', perform vector addition and return the sum in the
@@ -177,6 +169,3 @@
 	 (incf dimension-differences-squared-sum
 	       (expt (- e1 e2) 2)))     ;;difference squared
     (sqrt dimension-differences-squared-sum)))
-
-(blambert-util::memoize 'get-euclidean-distance)
-

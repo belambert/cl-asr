@@ -1,10 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Main interface functions for ASR")
 
-(cl-user::todo "Large portions of this file are probably largely obsolete at this point.")
+;;;; Main interface functions for ASR
+
+;;;; TODO Large portions of this file are probably largely obsolete at this point.")
 
 #+port-audio
 (defun recognize-speech-live (seconds transcript &rest rest)
@@ -128,8 +129,6 @@
 ;;;;;;;  Evaluation - evaluate models against reference transcriptions  ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Evaluation - evaluate models against transcriptions")
-
 (defun evaluate-on-test-set (directory-name ctl-file verbose &rest rest)
   "Run the recognizer on all the files in a directory and print some info about the results.
    Wants .mfc files only."
@@ -159,9 +158,3 @@
 	   (total-time (/ (- end-time start-time) 1000))
 	   (avg-time (/ total-time example-count)))
       (format t "Average WER: ~3,2F % [~A/~A] [Avg time: ~3,3f s]~%" (* 100 (/ error-count word-count)) error-count word-count avg-time))))
-
-
-
-
-
-

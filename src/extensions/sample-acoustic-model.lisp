@@ -1,11 +1,9 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Generating random samples from Gaussians and HMMs")
 
 ;;; These don't/won't use the velocity/acceleration features...
-
 (defgeneric sample (distribution)
   (:documentation "Sample the given distribution."))
 

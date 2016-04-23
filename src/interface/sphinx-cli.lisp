@@ -1,11 +1,7 @@
-;;;; Ben Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "A command line interface for Sphinx-L that mimics the interface of Sphinx3 (allowing for easy comparison).")
-
-;; For command line use: com.dvlsoft.clon
-;; For doc... use Albert, or ATDOC
 
 (defparameter *feature-extraction-param* nil)
 (defparameter *implemented-options-raw* nil)
@@ -15,8 +11,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;; CLI parsing, dispatch of DECODE function, usage, etc. ;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "CLI parsing, dispatch of DECODE function, usage, etc.")
 
 (defun get-options-table ()
   "Create a hash table mapping from command line arguments specified with a single dash (e.g. -inspen) to their value."
@@ -53,7 +47,6 @@
     (loop for (name default description) in all-opts do
 	 (format t "~25a ~16a ~a~%" name default description))))
 
-;; TODO - This function needs to be written...
 (defun print-matchseg-line (stream rr id)
   "Print the segmented match line to the matchseg file stream."
   (format stream "~{~A~^ ~} (~A)~%" (rr-bp-list rr) id))
@@ -104,8 +97,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;; Implemented CLI options ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Implemented CLI options")
 
 (defparameter *feature-extraction-param*
   '(("adchdr" 0 "Number of bytes to skip at the beginning of a waveform file (44 for WAV, 1024 for Sphere)")
@@ -158,8 +149,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;; Unimplemented and all CLI options ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Unimplemented and all CLI options")
 
 (defparameter *unimplemented-options-raw*
   '(("backtrace" "yes" "Whether detailed backtrace information (word segmentation/scores) shown in log")

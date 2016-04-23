@@ -1,14 +1,11 @@
-;;;; Ben Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx transition matricies' probabilities files.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read/write transition matrix probabilities ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Read/write transition matrix probabilities")
 
 (defun read-transition-matrices-verbose (&key checksum-p checksum computed-checksum hmm-count state-count transition-count data-length-given)
   "Print summary information while reading a Sphinx transition matrix file."
@@ -86,8 +83,3 @@
 		     (format stream " ~9,3,2e" (aref data i j k))
 		     (format stream "~9A" "")))
 	    (terpri stream))))
-
-
-
-
-

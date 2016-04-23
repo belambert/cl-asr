@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "CI phone lextree decoding")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Creating a cons cell-based tree of phone specifiers -- this is essential ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Creating a cons cell-based tree of phone specifiers -- this is essential.")
 
 (defun word->phone-list (word)
   "Gets all the phones for a word, converts them to keywords, then appends
@@ -36,8 +33,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Do the actual construction of language HMM ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Do the actual construction of language HMM")
 
 (defun build-ci-lextree-hmm (vocab acoustic-model log-base)
   "Build a language HMM entirely out of CI phones, in a lex tree structure."
@@ -69,8 +64,3 @@
       (declare (ignore start))
       (dolist (subsubtree subtree)
 	(build-ci-lextree-hmm-recursive subsubtree :hmm hmm :source-state end)))))
-
-       
-
-
-

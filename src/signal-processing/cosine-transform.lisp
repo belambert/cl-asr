@@ -1,10 +1,7 @@
-;;;; Ben Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Computing cosine transforms.")
-
-(cl-user::section "DCT")
 
 (defun dct-ii (array &optional truncated)
   "Discrete cosine transform (DCT). 
@@ -61,8 +58,6 @@
   "Uses the Wikipedia version of DCT-II (normalized)."
   (dct-ii array))
 
-(cl-user::section "Inverse DCT")
-
 (defun idct-ii (array)
   "The inverse of the Wikipedia DCT-II (defined in terms of DCT-III)."
   (let* ((N (length array))
@@ -95,5 +90,3 @@
 (defun idct (array)
   "Uses the MATLAB version."
   (idct-matlab array))
-
-

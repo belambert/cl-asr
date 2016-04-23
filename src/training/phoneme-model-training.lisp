@@ -1,18 +1,11 @@
-;;;; Ben Lambert (ben@benjaminlambert.com)
+;;;; Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Functions for training phoneme models")
-
-(cl-user::todo "How does/should this file relate the connected word training file?")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Create initial models     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Create initial models")
-
-(cl-user::todo "There's an important distinction betwee 'SIL' and '<sil>' that we're handling elegantly.")
 
 (defun smush-list (list)
   "Append a list of strings, remove duplicates, and then sort and return the remaining strings."
@@ -109,10 +102,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Main phoneme training     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Main phoneme training")
-
-(cl-user::todo "This is almost identical to the training function for connected words")
 
 (defun train-phoneme-models (training-data-dir initial-model-dir new-model-dir iterations dictionary-filename
 			     &key (save-intermediate-models nil)

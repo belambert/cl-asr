@@ -1,16 +1,12 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx MFCC extracted feature files.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read an MFCC feature file ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Read/write MFCC feature transformation files")
-
-;; Not sure if this is right... try to find out?
 (defun unextract-mfcc-features (mfccs &key (feature-count 13))
   "An attempt at writing a function which reverses the application of the linear transformation, and then
    lops off the velocity and acceleration features."
@@ -21,7 +17,6 @@
   (setf mfccs (map 'vector (lambda (x) (subseq x 0 feature-count)) mfccs))
   mfccs)
 
-;; Re-write this as a generic function...?
 (defun split-data-into-frames (samples feature-count)
   "Given a long sequence of numbers (here referred to misleadingly as 'samples'),
    split that long sequence into a number of shorter sequences, each with feature-count
@@ -127,5 +122,3 @@
   "Print an MFCC file readably."
   (dolist (frame frames)
     (format t "~{ ~8,3F~}~%" (coerce frame 'list))))
-
-

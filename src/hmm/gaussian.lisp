@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Gaussian, Gaussian mixtures, and related distance/probability computations.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; Definitions of distributions  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Definitions of distributions")
 
 (defclass* distribution ()
   ((dimensions 0 ira :type fixnum)) ;; this is just in case we want to run a sanity check
@@ -51,7 +48,6 @@
 (defun make-gaussian-mixture (dimensions components)
   "Convenience function (?) for creating Gaussian mixutre models."
   (let ((gm (make-instance 'gaussian-mixture :dimensions dimensions :components components)))
-    ;;(setf (gaussian-mixture-gaussians gm) (make-array components :element-type 'gaussian :initial-element (make-instance 'gaussian)))
     (setf (gaussian-mixture-gaussians gm) (make-array components :element-type '(or gaussian null) :initial-element nil))
     (setf (gaussian-mixture-weights gm) (make-array components :element-type 'single-float :initial-element 0.0))
     gm))
@@ -59,8 +55,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; Aux ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Aux")
 
 (defconstant +pi+ (coerce pi 'single-float)
   "A single precision version of the constant 'pi'.")
@@ -71,10 +65,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; Computing Gaussian distance/probability ;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Gaussian distance/probability generics")
-
-;; TODO - There's some redundancy here... we don't need separate generic functions for the mixture probabilities...!!
 
 (defgeneric gaussian-distance (x distribution)
   (:documentation "Compute the 'distance' of observation x from the given distribution.  This 'distance' is used by the other functions here."))
@@ -104,10 +94,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; Computing Gaussian distance/probability -- Implemented ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Gaussian distance/probability - Implemented functions")
-
-(cl-user::subsection "Gaussian style distances")
 
 (defmethod gaussian-distance (x (distribution gaussian))
   "Compute Gaussian 'distance' (?).  This is just the exponent part...?
@@ -148,8 +134,6 @@
 	0.0
 	lgk)))
 
-(cl-user::subsection "True Gaussian probabilities")
-
 (defmethod gaussian-probability (x (g gaussian))
   "Compute the true gaussian probability of X according to the given Gaussian distribution."
   (let* ((exponent (gaussian-distance x g))
@@ -167,8 +151,6 @@
       (let ((this-lgk (lgk x gmm k)))
 	(incf total-prob (exp this-lgk))))
     total-prob))
-
-(cl-user::subsection "Log Gaussian probabilities")
 
 (defmethod negative-log-gaussian-probability (x (g gaussian))
   "Compute the negative log probability of a data point in the given distribution.
@@ -269,4 +251,3 @@
   "This approximates the log probability of x in the given GMM, by taking only the biggest match
    of all the gaussians in the mixture."
   (get-max-lgk x gmm))
-

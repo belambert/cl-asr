@@ -1,8 +1,9 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Trellis and trellis searching.  This is the core of the system in many ways.")
+
+;;;; Trellis and trellis searching.  This is the core of the system in many ways.
 
 (defmacro do-active-states ((var active-node-list) &body body)
   "Loop over the active states, setting the variable 'var' to state-id for each one."
@@ -10,8 +11,6 @@
       for ,var from 0 below (length ,active-node-list) do
 	(when (= active 1)
 	  ,@body)))
-
-(cl-user::section "Representation of the outcome of the trellis search.")
 
 (defun print-rr (o s depth)
   "Print a recognition result object.  Doesn't print extremely verbose things, like the complete state-wise trellis back pointers."
@@ -83,9 +82,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Illusory trellis..       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Trellis search")
-
 
 (defstruct (trellis (:conc-name t-))
   "This struct holds all the data structures associated with the trellis search.
@@ -173,8 +169,6 @@
 ;;;;; Print debugging/progress ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Print debugging/progress")
-
 (defun get-top-n-histories (trellis n &key in-progress)
   "Beginning from the top-scoring active state, and going to the lowest, find and return the top 'n' scoring
    distinct word histories.  Calling this function repeatedly will cause the decoding to slow down
@@ -213,12 +207,9 @@
 	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d] [states:~{ ~A~}]~%" i history score count (bl:truncate-list states 8))
 	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d]~%" i history score count)))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Helper/aux functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Helper/aux functions")
 
 (defun word-ending-transition-p (hmm previous-state this-state)
   "Check if the transition from 'previous-state' to 'this-state' is 'word-ending'.
@@ -271,10 +262,7 @@
 ;;;;; The actual search ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "The actual search")
-
 ;; Most of the consing is probably happening in the places where we get the LM score.
-
 (defun search-illusory-trellis (input-sequence hmm &key
 				(relative-threshold nil) (beam-threshold nil) (max-width nil)
 				(compare-function #'log-gaussian-mixture-probability)
@@ -337,9 +325,7 @@
     ;; end of the main viterbi loop
     (get-recognition-result trellis hmm search-start-time retain-complete-bp-table height width relative-threshold beam-threshold nodes-visited)))
 
-
 ;; In principle, we could add some threading to these next few functions...
-
 (defun compute-next-column (trellis &key verbose)
   "Attempt to 'reach' everywhere in the next column we can get to from the current active states.
    This also does a lot of the before/after prepartion for moving to the next column: 1) clearing
@@ -352,10 +338,8 @@
   (fill (the simple-array (t-gaussian-match-cache trellis)) nil)
   ;; reset the next column scores
   (fill (the simple-array (t-next-scores trellis)) nil)
-
   ;; Pre-compute all the gaussian-match scores (for debugging):
   ;;(precompute-hmm-match-scores trellis)
-  
   ;; Then find all the places we can get to and add them to the next column active list...
   (do-active-states (state-id (the simple-bit-vector (t-active-nodes trellis)))
     (advance-by-one-state state-id trellis :verbose verbose))
@@ -520,15 +504,11 @@
 		      (> cumulative-score (the single-float (svref (t-next-scores trellis) end-state))))
 	      (setf (svref (t-frame-back-pointer-vector trellis) end-state) previous-back-pointer)
 	      (setf (svref (t-next-scores trellis) end-state) cumulative-score)   
-	      (vector-push previous-back-pointer (t-back-pointer-table trellis)))
-	    )))))
-
+	      (vector-push previous-back-pointer (t-back-pointer-table trellis))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Hypothesis retrieval functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Hypothesis retrieval functions")
 
 (defun get-hypothesis-from-bp-table (frame-back-pointer-vector end-state-num)
   "Get the best word seqeunce from the given back-pointer table (actually a vector)."
@@ -575,9 +555,6 @@
 ;;;;; LM Helper functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "LM Helper functions")
-
-;; There's some consing in both of the function calls in this...
 (defun get-back-pointer-lm-score (bp word)
   "Given a back-pointer, get the word history, and then return the LM prob of the history."
   (declare (optimize (speed 3)))
@@ -587,8 +564,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Pruning ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Pruning")
 
 (defun get-best-score (active-node-list this-column)
   (let ((best most-negative-single-float))
@@ -668,8 +643,6 @@
 ;;;;; Methods for getting relevant representations of the shortest path through the trellis. ;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Methods for getting relevant representations of the shortest path through the trellis.")
-
 (defun get-hypothesis-from-path (path hmm)
   "Get the word hypothesis from the 'path.'  Here the 'path' is a sequence of states.
    This function depends on the fact that non-emitting state are in the path (I believe)."
@@ -747,4 +720,3 @@
   (dolist (state path)
     (format t "~A " (elt (language-hmm-hmm-state-words hmm) state)))
   (write-line ""))
-

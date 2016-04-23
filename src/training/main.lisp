@@ -1,16 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Top level functions for acoustic model training")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;  Training acoustic models (word or phoneme models)   ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Training acoustic models (word or phoneme models)")
-
-(cl-user::todo "Extend these interfaces to include parameters like: silence penalty, 'forced alignment'?, etc.")
 
 (defun train-isolated-word-models (training-data-dir new-model-dir &key (iterations 10) (pruning-threshold nil))
   "Main user function for training word models."
@@ -46,7 +41,3 @@
 			  :evaluate-intermediate-models evaluate-intermediate-models 
 			  :evaluation-data-folder evaluation-data-folder
 			  :silence-penalty silence-penalty)))
-
-
-
-

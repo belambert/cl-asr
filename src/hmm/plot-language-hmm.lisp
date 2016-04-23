@@ -1,8 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Plot language HMMs as DOT directed graphs")
 
 (defun language-hmm->dot-file (hmm dot)
   "This BIG function takes a langauge HMM structure and prints the structure, etc. as a GraphViz DOT file.
@@ -34,8 +33,7 @@
 	 (cond ((= i (language-hmm-start-state hmm))
 		(format f "subgraph {~%rank = source; ~%")
 		(format f "~D [peripheries=3];~%" i)
-		(format f "};~%"))
-	       
+		(format f "};~%"))	       
 	       ((find i (language-hmm-final-states hmm))
 		(format f "subgraph {~%rank = sink; ~%")
 		(format f "~D [peripheries=5];~%" i)
@@ -48,8 +46,7 @@
 		(format f "subgraph {~%rank = max; ~%")
 		(format f "~D;~%" i)
 		(format f "};~%"))
-	       (t  ;; Otherwise!
-		
+	       (t  ;; Otherwise!		
 		;; Always wrap a state in a subgraph... dot appears to group the subgraphs, even if they aren't contiguous...
 		;; as long as they have a common name.
 		(when this-word
@@ -72,4 +69,3 @@
 		(when this-phone (format f "};~%"))
 		)))
   (format f "}~%")))
-

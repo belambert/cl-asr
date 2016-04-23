@@ -1,8 +1,9 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Early/simple try at doing ASR on arithmetic expressions")
+
+;;;; Early/simple try at doing ASR on arithmetic expressions
 
 (defun digit->number (str-digit)
   "Convert a string version of a numeric digit between zero and ten, to the

@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading/writing WAV files")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Reading WAV files...  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Reading WAV files...")
 
 (defun signed-to-unsigned (value size)
   "Return the unsigned representation of a signed byte with a given size.  Size is the number of BYTES."
@@ -69,8 +66,6 @@
 	      (setf (aref byte-array byte-array-offset2) byte)))
     byte-array))
 
-;; ADD CHECK ON THE BYTE COUNTS.... ETC.
-  
 (defun load-wav-file (filename &key (verbose t))
   "Read a wav audio file. See http://www.sonicspot.com/guide/wavefiles.html.  Or: https://ccrma.stanford.edu/courses/422/projects/WaveFormat/"
   (when verbose (format t "Reading WAV file: ~A~%" filename))
@@ -120,10 +115,7 @@
 ;;;;; Writing WAV files...  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Writing WAV files...")
-
 ;; Do I need to make the int array consist of unsigned ints?!?!?!
-
 (defun save-wav-file (filename samples &key (verbose t) (sample-rate 12800))
   "Read a wav audio file. See http://www.sonicspot.com/guide/wavefiles.html.  Or: https://ccrma.stanford.edu/courses/422/projects/WaveFormat/"
   (when verbose (format t "Saving WAV file: ~A~%" filename))

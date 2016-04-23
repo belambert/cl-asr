@@ -1,10 +1,7 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-
-(cl-user::file-summary "Reading and representation of a pronunciation dictionary")
-(cl-user::section "Pronunciation dictionary")
 
 (defvar *current-dictionary* nil
   "A global variable representation the current dictionary.

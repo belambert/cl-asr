@@ -1,15 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "General functions for reading entire S3 acoustic model files.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Load model ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Load model")
 
 (defun load-s3-gmms (&key means variances mixture-weights)
   "Load the Sphinx3 acoustic model Gaussian mixture models."
@@ -111,9 +107,6 @@
 ;;;; Read a segment definition file 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(cl-user::section "Read a segment definition file")
-
-;; Something like this...?
 (defun read-segment-def-file (filename)
   "Read a 'segment definition file'.  This file shows where audio segments begin/end within a longer audio file."
   (declare (ignore filename))
@@ -122,5 +115,3 @@
   ;;a960521 100286 100522 a960521_100286_100522_Greg_Williams_Male_Native_Spontaneous_Medium_Clean_Off
   ;;a960521 100520 100659 a960521_100520_100659_Greg_Williams_Male_Native_Spontaneous_Medium_Clean_Off
   ())
-
-

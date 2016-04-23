@@ -1,14 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Top level functions for performing feature extraction from audio")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;  Feature computation: convert audio files to MFCC files  ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Feature computation: convert audio files to MFCC files")
 
 (defun convert-folder-to-mfcc-simple (foldername &key (filter-bank-size 40) (start-freq 100) (end-freq 4000) (cepstrum-count 13) (preemphasize 0.95)
 				      (cepstra-mean-normalization t) (frame-length 25) (frame-delta 10) (extension ".mfc") (filename-transcript-function nil))

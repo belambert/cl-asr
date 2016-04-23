@@ -1,8 +1,9 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Some hacks that make it possible to recognize PHONES as opposed to WORDS, although quite awkwardly")
+
+;;;; Some hacks that make it possible to recognize PHONES as opposed to WORDS, although quite awkwardly
 
 (defun build-flat-phoneme-fsm (&key ci-only)
   "Build a flat bigram FSM for recognition by first constructing a pseudo vocab
@@ -55,4 +56,3 @@
   (if (phone-string-p string)
       (phone-spec->pretty-string (string->phone-spec string))
       string))
-      

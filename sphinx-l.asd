@@ -1,15 +1,15 @@
 ;;-*- Mode: Lisp -*- 
 
-;;; Author: Ben Lambert (ben@benjaminlambert.com)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert.com
 
-;; We've hopefully already loaded the shared object in .sbclrc?!?
+;; We've hopefully already loaded the shared object in .sbclrc?
 ;;(port-audio::pa-initialize)
 
 (defsystem "sphinx-l"
-  :description "Sphinx-L: A Lisp-based automatic speech recognition system"
+  :description "A Lisp-based automatic speech recognition system"
   :version "0.3.0"
   :author "Ben Lambert"
-  :licence "All rights reserved"
   :serial t
   :components
   ((:module src
@@ -81,21 +81,18 @@
 			 ;; 		       (:file "phoneme-model-training")))
 			 )))
 
-  :depends-on (:blambert-util
-	       :bordeaux-fft
+  :depends-on (:bordeaux-fft
 	       :cl-ppcre
 	       :sb-posix
 	       :language-model
-	       ;;:port-audio
-	       ;;:mixalot-mp3
+	       :port-audio
+	       :mixalot-mp3
 	       :ieee-floats
 	       :alexandria
 	       :metatilities
 	       :array-operations
 	       :cl-fad
 	       :split-sequence
-	       :gnuplot
-	       ;;:dependency-lm
-	       ))
+	       :gnuplot))
 
 

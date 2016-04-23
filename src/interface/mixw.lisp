@@ -1,15 +1,11 @@
-;;;; Author: Ben Lambert (ben@benjaminlambert)
+;;;; Author: Ben Lambert
+;;;; ben@benjaminlambert
 
-(declaim (optimize (debug 3)))
 (in-package :sphinx-l)
-(cl-user::file-summary "Reading Sphinx mixture weight files.")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Read/write Sphinx Gaussian mixture weights ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(cl-user::section "Read/write Sphinx Gaussian mixture weights")
 
 (defun read-mixture-weights-verbose (&key checksum-p checksum computed-checksum state-count feature-stream-count density-count data-length-given)
   "Print summary information while reading a Sphinx mixture weight file."
@@ -83,7 +79,3 @@
 		   (format stream"~%        "))
 		 (format stream "~,3,2e " (aref data i j k)))
 	    (terpri stream))))
-
-
-
-
