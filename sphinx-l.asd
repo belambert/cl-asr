@@ -17,6 +17,7 @@
 	    :components ((:file "package")
 			 (:file "vector-math")
 			 (:file "global")
+			 (:file "util")			 
 			 (:module fsm
 			 	  :serial t
 			 	  :components ((:file "fsm")
@@ -93,6 +94,8 @@
 	       :array-operations
 	       :cl-fad
 	       :split-sequence
-	       :gnuplot))
+	       ;;:gnuplot
+	       :gzip-stream
+	       ))
 
 

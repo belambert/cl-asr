@@ -204,7 +204,7 @@
     (loop for (history score count states) in histories
        for i from 1 to n do
 	 (if in-progress
-	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d] [states:~{ ~A~}]~%" i history score count (bl:truncate-list states 8))
+	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d] [states:~{ ~A~}]~%" i history score count (truncate-list states 8))
 	     (format t "          ~:d. ~{~A ~} (~F) [count: ~:d]~%" i history score count)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

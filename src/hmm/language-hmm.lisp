@@ -157,11 +157,11 @@
 
 (defun print-language-hmm (hmm &key max-count)
   (format t "LANGUAGE HMM. STATE=~A~%" (language-hmm-state-count hmm))
-  (format t "TRANS:     ~A~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
-  (format t "TRAN PROB: ~A~%" (list-list->numbered-string (bl:truncate-list (coerce (language-hmm-transition-probabilities hmm) 'list) max-count)))
-  (format t "WORDS:     ~A~%" (list->numbered-string (bl:truncate-list (coerce (language-hmm-hmm-state-words hmm) 'list) max-count)))
-  (format t "PHONES:    ~A~%" (list->numbered-string (bl:truncate-list (mapcar 'make-triphone-readable (coerce (language-hmm-hmm-state-phonemes hmm) 'list)) max-count)))
-  (format t "FINALP:    ~A~%" (list->numbered-string (bl:truncate-list (coerce (language-hmm-word-final-state hmm) 'list) max-count))))
+  (format t "TRANS:     ~A~%" (list-list->numbered-string (truncate-list (coerce (language-hmm-transitions hmm) 'list) max-count)))
+  (format t "TRAN PROB: ~A~%" (list-list->numbered-string (truncate-list (coerce (language-hmm-transition-probabilities hmm) 'list) max-count)))
+  (format t "WORDS:     ~A~%" (list->numbered-string (truncate-list (coerce (language-hmm-hmm-state-words hmm) 'list) max-count)))
+  (format t "PHONES:    ~A~%" (list->numbered-string (truncate-list (mapcar 'make-triphone-readable (coerce (language-hmm-hmm-state-phonemes hmm) 'list)) max-count)))
+  (format t "FINALP:    ~A~%" (list->numbered-string (truncate-list (coerce (language-hmm-word-final-state hmm) 'list) max-count))))
 
 (defun triphone-acoustic-equalp (t1 t2)
   "Checks if two triphone *acoustic models* are really the same."

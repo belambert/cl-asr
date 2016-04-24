@@ -32,7 +32,7 @@
 	 (ctl-filename (gethash "ctl" opts))
 	 (start (parse-integer (gethash "ctloffset" opts)))
 	 (count (parse-integer (gethash "ctlcount" opts)))
-	 (lines (bl:file->line-list ctl-filename))
+	 (lines (file->line-list ctl-filename))
 	 (files (subseq lines start (+ start count))))
     (setf files (mapcar (lambda (x) (list (format nil "~A/~A~A" dir x ext) x)) files))
     files))

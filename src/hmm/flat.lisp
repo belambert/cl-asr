@@ -119,7 +119,7 @@
   "Remove duplicates from the loop back table."
   (loop for key being the hash-keys of table
      for value = (gethash key table) do
-       (setf (gethash key table) (bl:remove-duplicates-fast value :ht-test 'eql))))
+       (setf (gethash key table) (remove-duplicates-fast value :ht-test 'eql))))
 
 (defun get-prefix-agnostic-phone-keys (table)
   "Get a list of all the phone keys that are agnostic to the left context."

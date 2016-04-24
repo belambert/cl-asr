@@ -73,8 +73,8 @@
 	       (graph-language-hmm nil)
 	       vocab)
   "A relatively high-level function for recognition, but requires that feature extraction has already been performed."
-  (assert (bl::xor insertion-penalty insertion-probability))
-  (assert (bl::xor silence-penalty silence-probability))
+  (assert (xor insertion-penalty insertion-probability))
+  (assert (xor silence-penalty silence-probability))
   (assert *lm*)
   (assert *acoustic-model*)
 
@@ -107,7 +107,7 @@
 	   (dict-vocab (get-dict-vocab))
 	   (full-vocab (if vocab
 			   vocab
-			   (sort (bl:intersection-fast lm-vocab dict-vocab :ht-test 'equalp) 'string-lessp)))
+			   (sort (intersection-fast lm-vocab dict-vocab :ht-test 'equalp) 'string-lessp)))
 	   (vocab (remove-if-not (lambda (x) (get-phonemes-for-word x)) full-vocab))
 	   (lang-hmm (case mode
 		       (:fsm                (create-fsm-and-language-hmm-from-fsm full-vocab *acoustic-model* :ci ci :phoneme-recognition phoneme-recognition :align-reference align-reference))
