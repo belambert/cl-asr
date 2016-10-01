@@ -1,0 +1,27 @@
+N_States: 4
+Start_State: 0
+Terminal_States: 3
+Edge 0 1
+Edge 0 1 "<sil>"
+Edge 1 2 "ZERO"
+Edge 1 2 "OH"
+Edge 1 2 "ONE"
+Edge 1 2 "TWO"
+Edge 1 2 "THREE"
+Edge 1 2 "FOUR"
+Edge 1 2 "FIVE"
+Edge 1 2 "SIX"
+Edge 1 2 "SEVEN"
+Edge 1 2 "EIGHT"
+Edge 1 2 "NINE"
+Edge 1 2 "TEN"
+Edge 1 2 "SIXTEEN"
+Edge 1 2 "THIRTY"
+Edge 1 2 "PLUS"
+Edge 1 2 "AND"
+Edge 1 2 "ARE"
+Edge 1 2 "IS"
+Edge 1 2 "<sil>"
+Edge 2 1
+Edge 2 3
+Edge 2 3 "<sil>"
