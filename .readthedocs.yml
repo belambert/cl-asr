@@ -1,0 +1,6 @@
+
+requirements_file:
+  docs/requirements-sphinx-doc.txt
+
+python:
+   version: 2
