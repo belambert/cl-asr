@@ -12,7 +12,7 @@
   (setf x (floor (* x width))) 
   (format t "|~A~A| (~a)" (make-string x :initial-element #\*) (make-string (- width x) :initial-element #\_) x)
   (terpri)
-  (force-output)))
+  (force-output))
 
 (defun update-meter (x &key (width 50))
   "Update the meter to a new level, without going to a new line."

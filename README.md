@@ -1,6 +1,5 @@
-============
 Lisp ASR decoder
-============
+================
 
 ASR decoder written in Common Lisp.  Uses acoustic models trained by Sphinx.
 

@@ -17,14 +17,14 @@
 	    :components ((:file "package")
 			 (:file "vector-math")
 			 (:file "global")
-			 (:file "util")			 
+			 (:file "util")
 			 (:module fsm
 			 	  :serial t
 			 	  :components ((:file "fsm")
 					       (:file "flat-bigram-lm")))
 			 (:module hmm
 			 	  :serial t
-			 	  :components ((:file "gaussian")		 
+			 	  :components ((:file "gaussian")
 					       (:file "data-structures")
 					       (:file "language-hmm")
 					       (:file "language-hmm-fsm")
@@ -73,7 +73,7 @@
 			 	  :components ((:file "meter")
 			 		       (:file "model-io")
 			 		       (:file "audio-io")
-			 		       ;;(:file "asr-interface")
+			 		       (:file "asr-interface")
 			 		       ))
 			 ;; (:module training
 			 ;; 	  :serial t

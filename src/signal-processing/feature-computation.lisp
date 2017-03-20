@@ -384,7 +384,7 @@
 			  (cepstra-mean-normalization t) (frame-length 25) (frame-delta 10))
   "Get the complete MFCC feature vectors with velocity and acceleration values."
   (when preemphasize (setf audio (preemphasize-audio audio preemphasize)))
-  (let* ((mfccs (get-mel-cepstrum audio 
+  (let* ((mfccs (get-mel-cepstrum audio
 				  :filter-bank-size filter-bank-size 
 				  :start-freq start-freq
 				  :end-freq end-freq

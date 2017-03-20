@@ -16,7 +16,7 @@
   "Create a hash table mapping from command line arguments specified with a single dash (e.g. -inspen) to their value."
   (let ((raw (subseq sb-ext:*posix-argv* 1 (length sb-ext:*posix-argv*))) ;; remove "sbcl" from the beginning...
 	(table (make-hash-table :test 'equalp)))
-    (loop while raw 
+    (loop while raw
 	 for key = (pop raw)
 	 for value = (pop raw) do
 	 (assert (char= (elt key 0) #\-))
