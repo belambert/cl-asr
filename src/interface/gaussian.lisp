@@ -3,9 +3,7 @@
 
 (in-package :sphinx-l)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Read/write Sphinx Gaussian files - either means or variances ;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Read/write Sphinx Gaussian files - either means or variances
 
 (defun read-gaussian-verbose (&key checksum-p checksum computed-checksum state-count feature-stream-count density-count cepstral-feature-count data-length-given)
   "Print summary information while reading a Sphinx Gaussian file."

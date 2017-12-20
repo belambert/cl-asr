@@ -13,8 +13,3 @@
   (:shadow :variance :mean)
   (:export :dictionary-word-phoneme-map
 	   :read-dictionary))
-
-
-
-
-

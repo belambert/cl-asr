@@ -3,9 +3,6 @@
 
 (in-package :sphinx-l)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Read an MFCC feature file ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun unextract-mfcc-features (mfccs &key (feature-count 13))
   "An attempt at writing a function which reverses the application of the linear transformation, and then

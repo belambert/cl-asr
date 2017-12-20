@@ -1,11 +1,9 @@
 ;;;; Author: Ben Lambert
 ;;;; ben@benjaminlambert.com
 
-(in-package :sphinx-l)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;; The global acoustic model ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; The global acoustic model
+
 
 (defvar *acoustic-model* nil
   "The currently loaded acoustic model which is comprised of individual phoneme models.")
@@ -15,8 +13,3 @@
 
 (defvar *phone-prefix* "+++PHONE+++"
   "This prefix designates a word as being actually a phone, not a true word.")
-
-
-
-
-

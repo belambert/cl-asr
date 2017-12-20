@@ -3,9 +3,7 @@
 
 (in-package :sphinx-l)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Read/write feature transformation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Read/write feature transformation
 
 (defun read-feature-transform-verbose (&key checksum-p checksum computed-checksum feature-stream-count
 				       cepstral-feature-count transformed-feature-count data-length-given)

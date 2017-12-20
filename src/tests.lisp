@@ -57,4 +57,3 @@
 			:model-directory "./misc/models/connected-phoneme-models"
 			:phone-or-word :phone
 			:dictionary "./misc/dict/numbers.dict"))
-			     

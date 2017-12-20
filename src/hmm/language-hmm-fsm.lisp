@@ -280,5 +280,3 @@
 						 :insertion-penalty insertion-penalty
 						 :ci ci)))
     lang-hmm))
-
-	

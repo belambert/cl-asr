@@ -23,5 +23,3 @@
   (:documentation 
    "An HMM. -- for words and/or phonemes.  This is no longer a primary data structure,
    but we're still using this in the FSM-based language HMM code, and training"))
-
-

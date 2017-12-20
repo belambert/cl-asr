@@ -3,9 +3,6 @@
 
 (in-package :sphinx-l)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Read/write Sphinx Gaussian mixture weights ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun read-mixture-weights-verbose (&key checksum-p checksum computed-checksum state-count feature-stream-count density-count data-length-given)
   "Print summary information while reading a Sphinx mixture weight file."

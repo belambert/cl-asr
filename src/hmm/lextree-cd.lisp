@@ -1,5 +1,5 @@
 ;;;; Author: Ben Lambert
-;;;; ben@benjaminlambert.com)
+;;;; ben@benjaminlambert.com
 
 (in-package :sphinx-l)
 
@@ -153,4 +153,3 @@
     ;; Recurse
     (dolist (subsubtree subtree)
       (build-cd-lextree-recursive subsubtree :hmm hmm :source-state end-state :lc root :entry-table entry-table :exit-table exit-table :left-ci left-ci :right-ci right-ci))))
-
