@@ -95,7 +95,4 @@
 	       :cl-fad
 	       :split-sequence
 	       ;;:gnuplot
-	       :gzip-stream
-	       ))
-
-
+	       :gzip-stream))

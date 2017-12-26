@@ -2,7 +2,6 @@
 
 cd /home/belamber/Workspace/cl-asr
 
-
 training_data_folder=./data/audio/aurora/train/
 test_data_folder=./data/audio/aurora/test/
 #initial_models=./models/iso-digit-models
@@ -19,4 +18,3 @@ eval_string="(progn (asdf:load-system 'cl-asr)  \
 (evaluate-on-test-set \"$test_data_folder\" nil t :model-directory \"$model_folder\" :grammar-filename \"./grammars/digits.fsm\" :relative-threshold nil)(quit))"
 
 sbcl --control-stack-size 16 --noinform --disable-debugger --eval "$eval_string"
-

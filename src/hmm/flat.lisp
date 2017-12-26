@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -120,8 +119,7 @@
 		 ;; Save this destination state as the source state for the next phone
 		 (setf dest-state end)))
 	   (setf prev-state dest-state)
-	   (setf dest-state nil)
-	   ))))
+	   (setf dest-state nil)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Functions for creating the loop-back links we need for true CD models ;;;;

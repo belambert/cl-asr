@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 ;;;; The original language HMM construction code -- for constructing a language HMM from a word FSM

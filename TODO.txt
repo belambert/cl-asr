@@ -2,3 +2,5 @@
 • Want more/better data structures.... for ceptra... hmms, better structs for audio etc.
 • Need to pass same parameters to template loader and to recorder/reader of audio...
 • Arithmetic sense machine in decoder
+• Change package name to cl-asr
+• Shorten long lines

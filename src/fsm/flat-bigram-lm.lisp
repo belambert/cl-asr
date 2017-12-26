@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 (defun build-flat-bigram-lang-hmm-from-vocab (vocab &key (model-source :phone) (transition-score-function 'negative-log) word-insertion-penalty silence-penalty)

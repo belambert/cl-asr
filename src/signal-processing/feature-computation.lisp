@@ -12,9 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
-
 
 ;; (blambert-util::memoize 'get-frequency-of-nth-fft-coefficient)
 ;; (blambert-util::memoize 'get-mel-filter-bank-coordinates)
@@ -51,7 +49,6 @@
 	  (length (dft-analysis-coefficient-list struct))
 	  (dft-analysis-original-sampling-rate struct)))
 
-
 (defstruct (dft-analysis (:print-function print-dft-analysis))
   "A list of DFT coefficients, plus the original sampling rate which is necessary in order to use the DFT results.
    DFT = discrete fourier transform."
@@ -71,7 +68,7 @@
   frequency-range-list)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; SAMPLE PROCESSING FUNCTIONS... ;;;;;;;;;;
+;;;;; SAMPLE PROCESSING FUNCTIONS... ;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun split-audio-into-frames (audio &key (frame-length 25) (frame-delta 10) verbose)
@@ -170,7 +167,6 @@
 			       :end (inverse-mel (+ center-freq freq-delta)))
 	      mel-filters)))
     (nreverse mel-filters)))
-
 
 (defun mel-filter (begin middle end frequency value)
   "Apply the mel filter triplet, at the given frequency to the given value."
@@ -410,7 +406,6 @@
     (declare (ignore xxx-ignore))
     (coerce (mapcar (lambda (x y z) (coerce (append x y z) '(vector single-float))) mfccs velocity-features acceleration-features)  'vector)))
 
-
 (defun convert-audio-to-mfcc-file (filename &key (filter-bank-size 40) (start-freq 100) (end-freq 4000) (cepstrum-count 13) (preemphasize 0.95) (cepstra-mean-normalization t) (frame-length 25) (frame-delta 10) (extension ".mfc") (filename-transcript-function nil) (transcript nil))
   "Given an audio filename, compute MFCC features for that audio and write them to a .mfc file."
   (let* ((audio (cond ((cl-ppcre:scan ".audio$" filename)
@@ -455,4 +450,3 @@
     (setf digit-list (substitute "0" "Z" digit-list :test 'string-equal))
     (setf digit-list (substitute "oh" "O" digit-list :test 'string-equal))
     (format nil "~{~A~^ ~}" digit-list)))
-  

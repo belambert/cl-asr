@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 (defun build-align-language-hmm (words acoustic-model log-base &key (allow-alt-pron t))

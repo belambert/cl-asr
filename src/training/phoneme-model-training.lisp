@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -182,11 +181,3 @@
 	      (new-example (make-connected-training-example :features features
 							    :lang-hmm new-lang-hmm)))
 	 (setf (aref examples i) new-example))))
-
-
-
-
-
-
-
-

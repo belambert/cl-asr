@@ -12,9 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
-
 
 (defun integer-first-token (string)
   "Given a string, get the first token (defined as space-separated),
@@ -43,15 +41,13 @@
   left        ;; left context
   right       ;; right context
   position    ;; word internal, word beginning, word ending, single-word triphone
-  attrib      ;; either 'filler' or 'n/a'
-  )
+  attrib)      ;; either 'filler' or 'n/a'
 
 (defstruct (triphone-model (:include triphone))
   "A basic structure to represent a triphone, immediately after being
   read from the mdef file."
   tmat        ;; an integer index into the sequence of transition matricies
   state-ids)  ;; a list of the integer indicies of each state's GMM
-
 
 (defun read-mdef-verbose (&key n1 n-base n-tri n-state-map n-tied-state n-tied-ci-state n-tied-tmat)
   "Print summary information while reading in a Sphinx model definition file."

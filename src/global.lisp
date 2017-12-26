@@ -12,9 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 ;;;; The global acoustic model
-
 
 (defvar *acoustic-model* nil
   "The currently loaded acoustic model which is comprised of individual phoneme models.")

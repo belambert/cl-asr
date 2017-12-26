@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 ;;;; Trellis and trellis searching.  This is the core of the system in many ways.
@@ -447,7 +446,6 @@
   (setf lm-score (* lm-score (the single-float (t-language-weight trellis))))
   ;; Add the scaled LM score to the current cumulative score and the insertion penalty since we just added a word.
   (+ lm-score (the single-float (t-insertion-penalty trellis))))
-
 
 (defun get-new-bp (trellis begin-state end-state cumulative-score previous-back-pointer)
   (let* ((previous-cumulative-score (if previous-back-pointer (back-pointer-cumulative-score previous-back-pointer) 0.0))

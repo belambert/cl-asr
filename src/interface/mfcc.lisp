@@ -12,9 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
-
 
 (defun unextract-mfcc-features (mfccs &key (feature-count 13))
   "An attempt at writing a function which reverses the application of the linear transformation, and then

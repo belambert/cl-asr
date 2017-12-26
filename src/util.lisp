@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (defun truncate-list (list maximum-length)
   "Returns a subsequence of the list, with a max length as specified.  If the max length is null
    then returns the original list."

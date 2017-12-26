@@ -26,4 +26,4 @@ echo $eval_string
 
 sbcl --noinform --control-stack-size 16 --disable-debugger --eval "$eval_string"
 
-#sbcl --control-stack-size 16 --eval "(progn (asdf:load-system 'cl-asr)  \
+# sbcl --control-stack-size 16 --eval "(progn (asdf:load-system 'cl-asr)  \

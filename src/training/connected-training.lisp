@@ -12,7 +12,6 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -169,7 +168,6 @@
 	     (filename (format nil "~A/~A.hmm" folder word)))
 	 (save-hmm hmm filename))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;  Segmentation of training data  ;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -300,4 +298,3 @@
 	   (setf (aref matrix i i)  (float (/ in-state-count transition-count)))
 	   (setf (aref matrix i (1+ i))  (float (/ out-transition-count transition-count)))))
     matrix))
-

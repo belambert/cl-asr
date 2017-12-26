@@ -12,9 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-
 (in-package :sphinx-l)
-
 
 (defun read-mixture-weights-verbose (&key checksum-p checksum computed-checksum state-count feature-stream-count density-count data-length-given)
   "Print summary information while reading a Sphinx mixture weight file."

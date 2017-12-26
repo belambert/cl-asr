@@ -1,6 +1,5 @@
 Lisp ASR decoder
 ================
-
 ASR decoder written in Common Lisp.  Uses acoustic models trained by Sphinx.
 
 Can be run in batch mode on Sphinx feature extracted files.  The 'standalone' component operates on raw WAV files and does the feature extraction internally.
@@ -36,4 +35,3 @@ The main function for training models
 ```lisp
 (TRAIN-MODEL filename)
 ```
-
