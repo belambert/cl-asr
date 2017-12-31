@@ -429,7 +429,7 @@
   (let ((lm-score (get-trellis-lm-score begin-state trellis)))
     (declare (single-float lm-score))
     ;; Convert the LM score to the appropriate log base
-    (setf lm-score (/ lm-score (the single-float (log (the single-float (t-log-base trellis)) (coerce (language-model::lm-log-base *lm*) 'single-float)))))
+    (setf lm-score (/ lm-score (the single-float (log (the single-float (t-log-base trellis)) (coerce (cl-lm::lm-log-base *lm*) 'single-float)))))
     ;; Multiply the LM score by the language weight
     (setf lm-score (* lm-score (the single-float (t-language-weight trellis))))
     ;; Add the scaled LM score to the current cumulative score and the insertion penalty since we just added a word.
@@ -441,7 +441,7 @@
   ;; Increment the score by the LM score...
   (declare (single-float lm-score))
   ;; Convert the LM score to the appropriate log base
-  (setf lm-score (/ lm-score (the single-float (log (the single-float (t-log-base trellis)) (coerce (language-model::lm-log-base *lm*) 'single-float)))))
+  (setf lm-score (/ lm-score (the single-float (log (the single-float (t-log-base trellis)) (coerce (cl-lm::lm-log-base *lm*) 'single-float)))))
   ;; Multiply the LM score by the language weight
   (setf lm-score (* lm-score (the single-float (t-language-weight trellis))))
   ;; Add the scaled LM score to the current cumulative score and the insertion penalty since we just added a word.
@@ -569,7 +569,7 @@
   "Given a back-pointer, get the word history, and then return the LM prob of the history."
   (declare (optimize (speed 3)))
   (let ((word-history (get-bp-word-seq bp :exclude-silences t)))
-    (language-model::log-prob-of-history *lm* (nconc word-history (list word)))))
+    (cl-lm::log-prob-of-history *lm* (nconc word-history (list word)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Pruning ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

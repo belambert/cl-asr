@@ -113,8 +113,8 @@
     ;; and then remove the velocity and acceleration features.
     (let* ((mfccs (read-mfcc-file mfcc-file))
 	   (raw-mfccs (read-raw-mfccs mfcc-file)) ;; we use these to if/when we have to show a spectrogram
-	   (lm-vocab (coerce (language-model::vocab *lm*) 'list))
-	   ;;(vocab (remove-if-not (lambda (x) (get-phonemes-for-word x)) (coerce (language-model::vocab *lm*) 'list)))
+	   (lm-vocab (coerce (cl-lm::vocab *lm*) 'list))
+	   ;;(vocab (remove-if-not (lambda (x) (get-phonemes-for-word x)) (coerce (cl-lm::vocab *lm*) 'list)))
 	   (dict-vocab (get-dict-vocab))
 	   (full-vocab (if vocab
 			   vocab

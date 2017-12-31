@@ -28,7 +28,7 @@ Example:
 
 The lanugage model gets loaded like so:
 ```lisp
-(setf *lm* (language-model::load-model (gethash "lm" opts)))
+(setf *lm* (cl-lm::load-model (gethash "lm" opts)))
 ```
 
 The main function for training models
