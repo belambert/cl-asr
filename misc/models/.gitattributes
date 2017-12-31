@@ -1,0 +1,10 @@
+en-70k-0.2-pruned.lm filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/feat.params filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/mixture_weights filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/variances filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/means filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/noisedict filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/transition_matrices filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/README filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/feature_transform filter=lfs diff=lfs merge=lfs -text
+cmusphinx-en-us-8khz-5.2/mdef filter=lfs diff=lfs merge=lfs -text
