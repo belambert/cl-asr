@@ -16,7 +16,7 @@
 
 ;;;; Main interface functions for ASR
 
-;;;; TODO Large portions of this file are probably largely obsolete at this point.")
+;;;; TODO Large portions of this file are probably largely obsolete at this point
 
 #+port-audio
 (defun recognize-speech-live (seconds transcript &rest rest)

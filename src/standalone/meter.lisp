@@ -37,7 +37,7 @@
     (update-meter (random 1.0))
     (sleep 1)))
 
-#+port-audio
+
 (defun live-level-meter (&key (seconds 10) (update-freq 0.5) (sample-rate 44100) (verbose t))
   "This is supposed to periodically output the total line level meter."
   (let ((segments (ceiling (/ seconds update-freq)))
@@ -53,3 +53,21 @@
 	    (update-meter (/ sum max-volume)))
 	(error (e) (when verbose (format t "Skipping segment... ~A~%" e))))
       (force-output t))))
+
+
+(defun live-level-meter-new ()
+  "This is supposed to periodically output the total line level meter."
+  (display-meter 0)
+  (portaudio:with-audio
+    (dotimes (i 100)
+      (handler-case
+	  (portaudio:with-default-audio-stream (astream 1 0
+							:sample-format :float
+							:sample-rate 44100d0
+							:frames-per-buffer 22050)
+	    (let* ((samples (portaudio:read-stream astream))
+		   (sum (reduce (lambda (x y) (+ x (abs y))) samples)))
+	      ;;(print sum)
+	      (update-meter (/ sum 500)))
+	      )))))
+

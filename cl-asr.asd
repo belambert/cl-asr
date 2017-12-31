@@ -82,11 +82,11 @@
 			 ;; 		       (:file "phoneme-model-training")))
 			 )))
 
-  :depends-on (:blambert-util
-	       :bordeaux-fft
+  :depends-on (:bordeaux-fft
 	       :cl-ppcre
 	       :sb-posix
 	       :cl-lm
+	       :cl-portaudio
 	       :port-audio
 	       :mixalot-mp3
 	       :ieee-floats
