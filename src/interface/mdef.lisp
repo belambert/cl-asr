@@ -64,7 +64,7 @@
 (defun read-mdef (filename &key verbose)
   "Read a Sphinx model definition file."
   (let* ((lines (delete-if (lambda (x) (or (= (length x) 0) (char-equal (elt x 0) #\#)))
-			   (blambert-util:file->line-list filename)))
+			   (file->line-list filename)))
 	 (n1 (read-from-string (pop lines)))
 	 (n-base (integer-first-token (pop lines)))
 	 (n-tri (integer-first-token (pop lines)))
