@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defun read-transition-matrices-verbose (&key checksum-p checksum computed-checksum hmm-count state-count transition-count data-length-given)
   "Print summary information while reading a Sphinx transition matrix file."

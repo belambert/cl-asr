@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defun cepstra->spectra (cepstra &key (log t))
   "Convert cepstrum features into spectrum features using an Inverse Discerete Cosine Transform."

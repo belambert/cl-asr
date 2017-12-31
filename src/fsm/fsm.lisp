@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;;;; Representation of a finite state machine... (for finite state grammars?)
 

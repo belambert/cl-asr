@@ -6,7 +6,7 @@
 ;; We've hopefully already loaded the shared object in .sbclrc?
 ;;(port-audio::pa-initialize)
 
-(defsystem "sphinx-l"
+(defsystem "cl-asr"
   :description "A Lisp-based automatic speech recognition system"
   :version "0.3.0"
   :author "Ben Lambert"

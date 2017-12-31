@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; Language HMM representation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,7 +184,7 @@
   (triphone-model-state-ids triphone))
 
 (defun get-triphone-tmat (triphone)
-  (aref (acoustic-model-tmats sphinx-l::*acoustic-model*) (triphone-model-tmat triphone)))
+  (aref (acoustic-model-tmats cl-asr::*acoustic-model*) (triphone-model-tmat triphone)))
 
 (defun get-matching-triphones (acoustic-model &key base left right position unique singleton)
   (unless acoustic-model
@@ -194,7 +194,7 @@
       (setf matches (get-ci-triphone-list base)))
     (setf matches (reverse matches))
     (when unique
-      (setf matches (remove-duplicates matches :test 'sphinx-l::triphone-acoustic-equalp)))
+      (setf matches (remove-duplicates matches :test 'cl-asr::triphone-acoustic-equalp)))
     (when singleton
       (assert (= (length matches) 1))
       (setf matches (first matches)))

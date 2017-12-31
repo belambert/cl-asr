@@ -23,7 +23,7 @@ To Load a Sphinx3 model:
 
 Example:
 ```lisp
-(sphinx-l::load-s3-model :folder "/Users/bel/workspace/sphinx/acoustic-models/fisher/")
+(cl-asr::load-s3-model :folder "/Users/bel/workspace/sphinx/acoustic-models/fisher/")
 ```
 
 The lanugage model gets loaded like so:

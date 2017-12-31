@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defun build-flat-bigram-lang-hmm-from-vocab (vocab &key (model-source :phone) (transition-score-function 'negative-log) word-insertion-penalty silence-penalty)
   "Build a language HMM from a bigram LM and a model directory (of word/phoneme models?)."
@@ -20,7 +20,7 @@
   (let* ((fsm (build-flat-bigram-fsm vocab))
 	 (lang-hmm (create-language-hmm-from-fsm fsm
 						 ;; This part is probably broken...
-						 ;;(acoustic-model-phone-hmm-table sphinx-l::*acoustic-model*)
+						 ;;(acoustic-model-phone-hmm-table cl-asr::*acoustic-model*)
 						 *acoustic-model*
 						 :model-source model-source
 						 ;;:transition-score-function transition-score-function

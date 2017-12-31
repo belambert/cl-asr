@@ -13,7 +13,7 @@
 ;; limitations under the License.
 
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;  Feature computation: convert audio files to MFCC files  ;;;;;;;;;;;;;;;;

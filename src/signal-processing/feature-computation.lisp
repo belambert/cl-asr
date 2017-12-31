@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;; (blambert-util::memoize 'get-frequency-of-nth-fft-coefficient)
 ;; (blambert-util::memoize 'get-mel-filter-bank-coordinates)

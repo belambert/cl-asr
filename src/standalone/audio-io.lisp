@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;; Our internal audio representation          ;;;;;;;;;;;;;;;
@@ -193,7 +193,7 @@
 
 (defun save-audio-file (audio filename)
   "Save an audio segment to a very basic, inefficient ASCII text file.
-   This is a sphinx-l specific file format."
+   This is a cl-asr specific file format."
   (with-open-file (file-stream filename :direction :output :if-exists :supersede)
     (format file-stream "~S~%" (audio-segment-seconds audio))
     (format file-stream "~S~%" (audio-segment-id audio))
@@ -208,7 +208,7 @@
   (save-audio-file audio filename))
 
 (defun load-audio-file (filename)
-  "Load an audio segment from a file.  This is a sphinx-l specific file format."
+  "Load an audio segment from a file.  This is a cl-asr specific file format."
   (let ((audio-segment (make-audio-segment)))
     (with-open-file (file-stream filename :direction :input)
       (setf (audio-segment-seconds audio-segment) (read-from-string (read-line file-stream)))

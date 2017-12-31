@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defstruct disk-gaussian
   "Less strictly typed version of gaussian.  More suitable to read/write from disk."

@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defun create-template-language-hmm (acoustic-model log-base)
   "This function creates a basic template language HMM that can be augmented to create a real, useful language HMM."

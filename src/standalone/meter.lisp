@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 ;;;; The display portion of a little text line-level meter.  Currently only working properly in *inferior-lisp* and on the command line
 

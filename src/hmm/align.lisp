@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(in-package :sphinx-l)
+(in-package :cl-asr)
 
 (defun build-align-language-hmm (words acoustic-model log-base &key (allow-alt-pron t))
   "Build an alignment language HMM.  This is the main function to call."
