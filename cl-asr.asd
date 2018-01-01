@@ -63,24 +63,14 @@
 					       (:file "mdef")
 					       (:file "mfcc")
 					       (:file "sphinx-interface")
-					       (:file "sphinx-cli")
-					       ))
-			 ;; (:module lm
-			 ;; 	  :serial t
-			 ;; 	  :components ((:file "ngram-model-dmp")))
+					       (:file "sphinx-cli")))
 			 (:module standalone
 			 	  :serial t
 			 	  :components ((:file "meter")
 			 		       (:file "model-io")
 			 		       (:file "audio-io")
 			 		       (:file "asr-interface")
-			 		       ))
-			 ;; (:module training
-			 ;; 	  :serial t
-			 ;; 	  :components ((:file "training-fsm")
-			 ;; 		       (:file "connected-training")
-			 ;; 		       (:file "phoneme-model-training")))
-			 )))
+			 		       )))))
 
   :depends-on (:bordeaux-fft
 	       :cl-ppcre
