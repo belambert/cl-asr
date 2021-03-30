@@ -393,12 +393,12 @@
   "Get the complete MFCC feature vectors with velocity and acceleration values."
   (when preemphasize (setf audio (preemphasize-audio audio preemphasize)))
   (let* ((mfccs (get-mel-cepstrum audio
-				  :filter-bank-size filter-bank-size 
+				  :filter-bank-size filter-bank-size
 				  :start-freq start-freq
 				  :end-freq end-freq
 				  :cepstrum-count cepstrum-count
 				  :frame-length frame-length
-				  :frame-delta frame-delta ))
+				  :frame-delta frame-delta))
 	 (xxx-ignore (when cepstra-mean-normalization
 		       (setf mfccs (cepstra-mean-normalization mfccs))))
 	 (velocity-features (get-feature-deltas mfccs))
