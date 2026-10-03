@@ -1,6 +1,6 @@
 Lisp ASR decoder
 ================
-[![Build Status](https://travis-ci.org/belambert/cl-asr.svg?branch=main)](https://travis-ci.org/belambert/cl-asr)
+[![test](https://github.com/belambert/cl-asr/actions/workflows/test.yml/badge.svg)](https://github.com/belambert/cl-asr/actions/workflows/test.yml)
 
 ASR decoder written in Common Lisp.  Uses acoustic models trained by Sphinx, and
 ARPA LM files.
